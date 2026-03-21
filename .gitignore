@@ -27,3 +27,4 @@ public/og/
 *.njsproj
 *.sln
 *.sw?
+.vercel
