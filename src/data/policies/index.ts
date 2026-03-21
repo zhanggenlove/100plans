@@ -1,0 +1,8 @@
+export { chanfeiPolicy } from './chanfei'
+export { coinFocusPolicy } from './coin-focus'
+export { moocatPolicy } from './moocat'
+export { quickKeyboardPolicy } from './quick-keyboard'
+export { docScannerPolicy } from './doc-scanner'
+export { zzzappyPolicy } from './zzzappy'
+export { musicSwitchPolicy } from './music-switch'
+export { sakuragoPolicy } from './sakurago'

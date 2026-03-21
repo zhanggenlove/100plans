@@ -1,0 +1,37 @@
+{
+  "name": "100plans-app-stack",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "prebuild": "tsx scripts/fetch-appstore.ts && tsx scripts/generate-og.ts",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@tailwindcss/typography": "^0.5.19",
+    "@tailwindcss/vite": "^4.2.2",
+    "fuse.js": "^7.1.0",
+    "lucide-vue-next": "^0.577.0",
+    "markdown-it": "^14.1.1",
+    "pinia": "^3.0.4",
+    "tailwindcss": "^4.2.2",
+    "vue": "^3.5.30",
+    "vue-i18n": "^11.3.0",
+    "vue-router": "^5.0.4"
+  },
+  "devDependencies": {
+    "@fontsource/noto-sans-sc": "^5.2.9",
+    "@resvg/resvg-js": "^2.6.2",
+    "@types/markdown-it": "^14.1.2",
+    "@types/node": "^24.12.0",
+    "@vitejs/plugin-vue": "^6.0.5",
+    "@vue/tsconfig": "^0.9.0",
+    "satori": "^0.26.0",
+    "tsx": "^4.21.0",
+    "typescript": "~5.9.3",
+    "vite": "^8.0.1",
+    "vue-tsc": "^3.2.5"
+  }
+}
