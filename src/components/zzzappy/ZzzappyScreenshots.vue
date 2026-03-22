@@ -17,7 +17,26 @@ const screenshots = [
 
 const visible = ref(false)
 const el = ref<HTMLElement | null>(null)
+const paused = ref(false)
+const lightbox = ref<string | null>(null)
+const lightboxReady = ref(false)
 let observer: IntersectionObserver | null = null
+
+function openLightbox(file: string) {
+  lightbox.value = `/images/screenshots/zzzappy/${loc.value}/${file}`
+  requestAnimationFrame(() => {
+    lightboxReady.value = true
+  })
+}
+
+function closeLightbox() {
+  lightboxReady.value = false
+  setTimeout(() => { lightbox.value = null }, 300)
+}
+
+function onKey(e: KeyboardEvent) {
+  if (e.key === 'Escape') closeLightbox()
+}
 
 onMounted(() => {
   if (!el.value) return
@@ -28,72 +47,110 @@ onMounted(() => {
         observer?.disconnect()
       }
     },
-    { threshold: 0.1 },
+    { threshold: 0.05 },
   )
   observer.observe(el.value)
+  window.addEventListener('keydown', onKey)
 })
 
 onUnmounted(() => {
   observer?.disconnect()
+  window.removeEventListener('keydown', onKey)
 })
 </script>
 
 <template>
-  <section ref="el" class="relative overflow-hidden bg-[#0d0815] py-24">
+  <section ref="el" class="relative overflow-hidden bg-[#0d0815] py-20">
     <div class="pointer-events-none absolute inset-0 ss-grain" />
 
     <div
-      class="ss-track flex gap-6 px-6"
+      class="ss-marquee-wrap"
       :style="{
         opacity: visible ? '1' : '0',
-        transform: visible ? 'translateY(0)' : 'translateY(40px)',
-        transition: 'opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)',
+        transform: visible ? 'translateY(0)' : 'translateY(30px)',
+        transition: 'opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1)',
       }"
+      @mouseenter="paused = true"
+      @mouseleave="paused = false"
     >
-      <div
-        v-for="(file, i) in screenshots"
-        :key="file"
-        class="ss-card shrink-0"
-        :style="{
-          opacity: visible ? '1' : '0',
-          transform: visible ? 'scale(1)' : 'scale(0.92)',
-          transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${0.08 + i * 0.06}s, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${0.08 + i * 0.06}s`,
-        }"
-      >
-        <img
-          :src="`/images/screenshots/zzzappy/${loc}/${file}`"
-          :alt="file.replace(/^\d+_/, '').replace('.png', '')"
-          class="ss-img"
-          loading="lazy"
-        />
+      <div class="ss-marquee" :class="{ 'ss-paused': paused }">
+        <div
+          v-for="(file, i) in [...screenshots, ...screenshots]"
+          :key="`${file}-${i}`"
+          class="ss-card"
+          @click="openLightbox(screenshots[i % screenshots.length])"
+        >
+          <img
+            :src="`/images/screenshots/zzzappy/${loc}/${screenshots[i % screenshots.length]}`"
+            :alt="screenshots[i % screenshots.length].replace(/^\d+_/, '').replace('.png', '')"
+            class="ss-img"
+            loading="lazy"
+          />
+        </div>
       </div>
     </div>
+
+    <Teleport to="body">
+      <div
+        v-if="lightbox"
+        class="ss-lightbox"
+        :class="{ 'ss-lightbox--active': lightboxReady }"
+        @click.self="closeLightbox"
+      >
+        <button
+          class="absolute right-6 top-6 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-xl ring-1 ring-white/20 transition hover:bg-white/20"
+          @click="closeLightbox"
+          aria-label="Close"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+        <img
+          :src="lightbox"
+          alt=""
+          class="ss-lightbox-img"
+          :class="{ 'ss-lightbox-img--active': lightboxReady }"
+        />
+      </div>
+    </Teleport>
   </section>
 </template>
 
 <style scoped>
-.ss-track {
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  padding-bottom: 8px;
+.ss-marquee-wrap {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
 }
-.ss-track::-webkit-scrollbar {
-  display: none;
+.ss-marquee {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+.ss-marquee.ss-paused {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 .ss-card {
-  width: 320px;
-  scroll-snap-align: center;
+  width: 300px;
+  flex-shrink: 0;
   border-radius: 16px;
   overflow: hidden;
+  cursor: pointer;
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.4),
     0 0 0 1px rgba(255, 255, 255, 0.06);
-  transition: transform 0.35s ease;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
 }
 .ss-card:hover {
-  transform: scale(1.03) !important;
+  transform: translateY(-8px) scale(1.03);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 0 30px -4px rgba(236, 72, 153, 0.2);
 }
 .ss-img {
   width: 100%;
@@ -105,9 +162,39 @@ onUnmounted(() => {
   background-repeat: repeat;
   background-size: 256px 256px;
 }
+
+.ss-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background: rgba(0, 0, 0, 0);
+  backdrop-filter: blur(0px);
+  transition: background 0.3s ease, backdrop-filter 0.3s ease;
+}
+.ss-lightbox--active {
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(20px);
+}
+.ss-lightbox-img {
+  max-width: 90vw;
+  max-height: 85vh;
+  border-radius: 16px;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.ss-lightbox-img--active {
+  opacity: 1;
+  transform: scale(1);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .ss-card:hover {
-    transform: none !important;
-  }
+  .ss-marquee { animation: none; }
+  .ss-card:hover { transform: none; }
 }
 </style>

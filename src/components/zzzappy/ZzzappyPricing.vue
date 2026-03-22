@@ -158,6 +158,15 @@ function fadeStyle(delayMs: number) {
   box-shadow:
     0 4px 24px rgba(0, 0, 0, 0.25),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+}
+.pricing-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.35),
+    0 0 30px -6px rgba(139, 92, 246, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .pricing-card-inner {

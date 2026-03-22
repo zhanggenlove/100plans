@@ -94,7 +94,7 @@ onUnmounted(() => {
         <article
           v-for="(item, index) in features"
           :key="item.titleKey"
-          class="feature-card flex flex-col rounded-2xl bg-white/[0.04] p-6 ring-1 ring-white/[0.06] backdrop-blur transition-shadow duration-300 hover:ring-white/[0.1]"
+          class="feature-card flex flex-col rounded-2xl bg-white/[0.04] p-6 ring-1 ring-white/[0.06] backdrop-blur transition-all duration-400 hover:ring-white/[0.14] hover:-translate-y-1 hover:bg-white/[0.06] hover:shadow-lg hover:shadow-[#ec4899]/[0.06]"
           :style="cardStyle(index)"
         >
           <div

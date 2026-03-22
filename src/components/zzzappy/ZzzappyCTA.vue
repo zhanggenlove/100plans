@@ -77,9 +77,10 @@ onUnmounted(() => obs?.disconnect())
 
         <button
           type="button"
-          class="zz-cta inline-flex items-center justify-center rounded-full px-10 py-4 text-sm font-semibold text-white shadow-lg shadow-[#f97316]/20 transition-[transform,box-shadow] duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-[#ec4899]/25 active:scale-[0.99]"
+          class="zz-cta group relative inline-flex items-center justify-center overflow-hidden rounded-full px-10 py-4 text-sm font-semibold text-white shadow-lg shadow-[#f97316]/20 transition-[transform,box-shadow] duration-300 hover:scale-[1.03] hover:shadow-xl hover:shadow-[#ec4899]/30 active:scale-[0.99]"
         >
-          {{ t('zzzappy.ctaButton') }}
+          <span class="zz-shimmer" />
+          <span class="relative z-10">{{ t('zzzappy.ctaButton') }}</span>
         </button>
       </div>
     </div>
@@ -109,10 +110,11 @@ onUnmounted(() => obs?.disconnect())
                 {{ t(`zzzappy.${faq.q}`) }}
               </span>
               <span
-                class="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/10 text-lg leading-none text-white/50"
+                class="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/10 text-white/50 transition-all duration-300"
+                :class="openFaq === i ? 'rotate-45 border-[#fb7185]/40 bg-[#fb7185]/10 text-[#fb7185]' : ''"
                 aria-hidden="true"
               >
-                {{ openFaq === i ? '−' : '+' }}
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
               </span>
             </button>
             <div
@@ -143,22 +145,26 @@ onUnmounted(() => obs?.disconnect())
 }
 .zz-cta {
   background: linear-gradient(135deg, #f97316 0%, #ec4899 45%, #8b5cf6 78%, #3b82f6 100%);
-  background-size: 140% 140%;
-  background-position: 0% 50%;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease,
-    background-position 0.5s ease;
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease infinite;
 }
-.zz-cta:hover {
-  background-position: 100% 50%;
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.zz-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.2) 45%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.2) 55%, transparent 70%);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .zz-cta {
-    background-position: 50% 50%;
-  }
-  .zz-cta:hover {
-    background-position: 50% 50%;
-  }
+  .zz-cta { animation: none; background-position: 50% 50%; }
+  .zz-shimmer { animation: none; display: none; }
 }
 </style>

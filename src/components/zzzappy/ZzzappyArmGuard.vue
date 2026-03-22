@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, reactive, computed, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { t, locale } = useI18n()
@@ -20,6 +20,15 @@ const dimensions = [
   { i18nKey: 'armD4' as const, icon: '↕️', ring: 'from-[#3b82f6]/30 to-[#3b82f6]/5' },
   { i18nKey: 'armD5' as const, icon: '⏱', ring: 'from-[#f97316]/25 to-[#ec4899]/15' },
 ]
+
+const tilt = reactive({ x: 0, y: 0, active: false })
+function onWindowMove(e: MouseEvent) {
+  const rect = (e.currentTarget as HTMLElement).getBoundingClientRect()
+  tilt.x = ((e.clientX - rect.left) / rect.width - 0.5) * 12
+  tilt.y = ((e.clientY - rect.top) / rect.height - 0.5) * -12
+}
+function onWindowEnter() { tilt.active = true }
+function onWindowLeave() { tilt.active = false; tilt.x = 0; tilt.y = 0 }
 
 let obs: IntersectionObserver | null = null
 onMounted(() => {
@@ -73,10 +82,18 @@ onUnmounted(() => obs?.disconnect())
             transform: visible ? 'translateY(0) scale(1)' : 'translateY(24px) scale(0.97)',
             transition:
               'opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s',
+            perspective: '1200px',
           }"
         >
           <div
             class="arm-window overflow-hidden rounded-2xl bg-[#14101c] ring-1 ring-white/[0.12]"
+            :style="{
+              transform: tilt.active ? `rotateY(${tilt.x}deg) rotateX(${tilt.y}deg)` : 'rotateY(0) rotateX(0)',
+              transition: tilt.active ? 'transform 0.1s ease-out' : 'transform 0.5s ease-out',
+            }"
+            @mousemove="onWindowMove"
+            @mouseenter="onWindowEnter"
+            @mouseleave="onWindowLeave"
           >
             <div
               class="flex items-center gap-3 border-b border-white/[0.06] bg-white/[0.03] px-4 py-3 backdrop-blur-xl"
