@@ -75,13 +75,15 @@ onUnmounted(() => obs?.disconnect())
           {{ t('zzzappy.ctaTitle') }}
         </h2>
 
-        <button
-          type="button"
-          class="zz-cta group relative inline-flex items-center justify-center overflow-hidden rounded-full px-10 py-4 text-sm font-semibold text-white shadow-lg shadow-[#f97316]/20 transition-[transform,box-shadow] duration-300 hover:scale-[1.03] hover:shadow-xl hover:shadow-[#ec4899]/30 active:scale-[0.99]"
+        <a
+          href="https://apps.apple.com/app/id6760637798"
+          target="_blank"
+          rel="noopener"
+          class="zz-cta group relative inline-flex items-center justify-center overflow-hidden rounded-full px-10 py-4 text-sm font-semibold text-white no-underline shadow-lg shadow-[#f97316]/20 transition-[transform,box-shadow] duration-300 hover:scale-[1.03] hover:shadow-xl hover:shadow-[#ec4899]/30 active:scale-[0.99]"
         >
           <span class="zz-shimmer" />
           <span class="relative z-10">{{ t('zzzappy.ctaButton') }}</span>
-        </button>
+        </a>
       </div>
     </div>
 

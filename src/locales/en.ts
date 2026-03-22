@@ -93,7 +93,7 @@ export default {
     tagline: 'Dual Health Guard for Eyes & Arms',
     subtitle: 'A health companion for Mac users that monitors screen time and input load simultaneously, scheduling smart breaks to prevent eye strain and RSI.',
     cta: 'Download on Mac App Store',
-    ctaSoon: 'Coming Soon',
+    ctaSoon: 'Get It Now',
     badge1: 'macOS 13.0+',
     badge2: '7-Day Free Trial',
     badge3: '7 Languages',
