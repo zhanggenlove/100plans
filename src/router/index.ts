@@ -3,6 +3,7 @@ import { nextTick } from 'vue'
 
 const HomePage = () => import('@/views/HomePage.vue')
 const ProductPage = () => import('@/views/ProductPage.vue')
+const ZzzappyLandingPage = () => import('@/views/ZzzappyLandingPage.vue')
 const PrivacyPage = () => import('@/views/PrivacyPage.vue')
 const TermsPage = () => import('@/views/TermsPage.vue')
 const AboutPage = () => import('@/views/AboutPage.vue')
@@ -33,6 +34,7 @@ const routes: RouteRecordRaw[] = [
     path: '/:locale(en|zh|ja)',
     children: [
       { path: '', name: 'home', component: HomePage },
+      { path: 'app/zzzappy', name: 'zzzappy', component: ZzzappyLandingPage },
       { path: 'app/:slug', name: 'product', component: ProductPage },
       { path: 'app/:slug/privacy', name: 'privacy', component: PrivacyPage },
       { path: 'app/:slug/terms', name: 'terms', component: TermsPage },
