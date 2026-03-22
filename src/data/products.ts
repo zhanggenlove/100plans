@@ -466,7 +466,7 @@ export const products: Product[] = [
       ],
     },
     meta: {
-      requirements: 'macOS 13.0+',
+      requirements: 'macOS 14.0+',
       languages: ['简体中文', 'English', '日本語', '한국어', 'Deutsch', 'Français', 'Italiano'],
     },
   },

@@ -94,7 +94,7 @@ export default {
     subtitle: '专为 Mac 用户设计的双重健康守护助手，同时监测用眼时长和手臂输入负荷，科学安排休息节奏，帮你远离视力下降和 RSI。',
     cta: '在 Mac App Store 下载',
     ctaSoon: '立即获取',
-    badge1: 'macOS 13.0+',
+    badge1: 'macOS 14.0+',
     badge2: '7 天免费试用',
     badge3: '7 种语言',
     heroHow: '了解更多',

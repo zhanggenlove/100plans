@@ -94,7 +94,7 @@ export default {
     subtitle: 'Mac向け健康サポートアプリ。画面時間と入力負荷を同時にモニタリングし、科学的に休憩をスケジュール。眼精疲労とRSIを予防します。',
     cta: 'Mac App Storeでダウンロード',
     ctaSoon: '今すぐ入手',
-    badge1: 'macOS 13.0+',
+    badge1: 'macOS 14.0+',
     badge2: '7日間無料',
     badge3: '7言語対応',
     heroHow: '詳しく見る',
