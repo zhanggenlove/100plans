@@ -415,7 +415,7 @@ export const products: Product[] = [
     category: { en: 'Health & Fitness', zh: '健康', ja: 'ヘルスケア' },
     status: 'coming-soon',
     websiteUrl: 'https://zzzappy.app',
-    gradient: { from: 'green-500', to: 'lime-500' },
+    gradient: { from: 'orange-500', to: 'purple-500' },
     screenshots: [],
     features: [
       {

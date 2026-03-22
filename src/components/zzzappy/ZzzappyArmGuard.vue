@@ -1,113 +1,186 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
+
+const loc = computed(() => (['zh', 'ja'].includes(locale.value) ? locale.value : 'en'))
+
+const screenshotSrc = computed(
+  () => `/images/screenshots/zzzappy/${loc.value}/02_arm_guard.png`,
+)
+
 const visible = ref(false)
 const el = ref<HTMLElement | null>(null)
 
 const dimensions = [
-  { key: 'armKeystrokes', target: 78, color: '#f97316' },
-  { key: 'armClicks', target: 52, color: '#f59e0b' },
-  { key: 'armTrackpad', target: 65, color: '#ec4899' },
-  { key: 'armScroll', target: 40, color: '#a855f7' },
-  { key: 'armDuration', target: 88, color: '#ef4444' },
+  { i18nKey: 'armD1' as const, icon: '⌨️', ring: 'from-[#f97316]/30 to-[#f97316]/5' },
+  { i18nKey: 'armD2' as const, icon: '🖱', ring: 'from-[#ec4899]/30 to-[#ec4899]/5' },
+  { i18nKey: 'armD3' as const, icon: '🔲', ring: 'from-[#8b5cf6]/30 to-[#8b5cf6]/5' },
+  { i18nKey: 'armD4' as const, icon: '↕️', ring: 'from-[#3b82f6]/30 to-[#3b82f6]/5' },
+  { i18nKey: 'armD5' as const, icon: '⏱', ring: 'from-[#f97316]/25 to-[#ec4899]/15' },
 ]
-
-const presets = ['armRelaxed', 'armStandard', 'armStrict', 'armCustom'] as const
-const presetColors = ['text-emerald-400', 'text-amber-400', 'text-rose-400', 'text-blue-400']
-
-const values = ref(dimensions.map(() => 0))
-let raf = 0
-
-function animateGauges() {
-  const dur = 1600
-  const start = performance.now()
-  function tick(now: number) {
-    const p = Math.min((now - start) / dur, 1)
-    const ease = 1 - Math.pow(1 - p, 3)
-    values.value = dimensions.map((d) => Math.round(d.target * ease))
-    if (p < 1) raf = requestAnimationFrame(tick)
-  }
-  raf = requestAnimationFrame(tick)
-}
 
 let obs: IntersectionObserver | null = null
 onMounted(() => {
   if (!el.value) return
-  obs = new IntersectionObserver(([e]) => {
-    if (e.isIntersecting) { visible.value = true; animateGauges(); obs?.disconnect() }
-  }, { threshold: 0.15 })
+  obs = new IntersectionObserver(
+    ([e]) => {
+      if (e.isIntersecting) {
+        visible.value = true
+        obs?.disconnect()
+      }
+    },
+    { threshold: 0.12 },
+  )
   obs.observe(el.value)
 })
-onUnmounted(() => { obs?.disconnect(); cancelAnimationFrame(raf) })
-
-function circumference(r: number) { return 2 * Math.PI * r }
-const R = 36
-const C = circumference(R)
+onUnmounted(() => obs?.disconnect())
 </script>
 
 <template>
-  <section ref="el" class="relative overflow-hidden bg-[#070b14] py-28 sm:py-36">
-    <div class="zz-grain pointer-events-none absolute inset-0" />
-    <div class="pointer-events-none absolute right-0 top-1/4 h-[500px] w-[500px] rounded-full bg-orange-600/[0.05] blur-[120px]" />
+  <section
+    ref="el"
+    class="arm-section relative overflow-hidden bg-[#0d0815] py-32"
+  >
+    <div class="arm-grain pointer-events-none absolute inset-0" />
+    <div
+      class="pointer-events-none absolute -right-28 top-1/3 h-[400px] w-[400px] rounded-full bg-[#3b82f6]/[0.07] blur-[100px]"
+    />
+    <div
+      class="pointer-events-none absolute -left-24 bottom-1/4 h-[380px] w-[380px] rounded-full bg-[#f97316]/[0.08] blur-[100px]"
+    />
+    <div
+      class="pointer-events-none absolute left-1/3 top-0 h-[260px] w-[520px] -translate-x-1/2 rounded-full bg-[#ec4899]/[0.06] blur-[110px]"
+    />
 
-    <div class="relative z-10 mx-auto max-w-5xl px-6">
-      <div class="grid items-center gap-16 lg:grid-cols-2">
-        <!-- Left: 5 ring gauges -->
+    <div
+      class="relative z-10 mx-auto max-w-6xl px-6"
+      :style="{
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(28px)',
+        transition: 'opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1)',
+      }"
+    >
+      <div
+        class="grid grid-cols-1 items-center gap-16 lg:grid-cols-2 lg:gap-20 xl:gap-24"
+      >
+        <!-- Screenshot LEFT on desktop; second on mobile -->
         <div
-          class="order-2 flex flex-wrap items-center justify-center gap-6 lg:order-1"
-          :style="{ opacity: visible ? '1' : '0', transform: visible ? 'scale(1)' : 'scale(0.9)', transition: 'all 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s' }"
+          class="order-2 lg:order-1"
+          :style="{
+            opacity: visible ? 1 : 0,
+            transform: visible ? 'translateY(0) scale(1)' : 'translateY(24px) scale(0.97)',
+            transition:
+              'opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s',
+          }"
         >
-          <div v-for="(dim, i) in dimensions" :key="dim.key" class="flex flex-col items-center gap-2">
-            <div class="relative h-20 w-20 sm:h-24 sm:w-24">
-              <svg class="h-full w-full -rotate-90" viewBox="0 0 80 80">
-                <circle cx="40" cy="40" :r="R" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="4" />
-                <circle
-                  cx="40" cy="40" :r="R" fill="none" :stroke="dim.color" stroke-width="4"
-                  stroke-linecap="round"
-                  :stroke-dasharray="`${(values[i] / 100) * C} ${C}`"
-                  style="transition: stroke-dasharray 0.1s linear"
+          <div
+            class="arm-window overflow-hidden rounded-2xl bg-[#14101c] ring-1 ring-white/[0.12]"
+          >
+            <div
+              class="flex items-center gap-3 border-b border-white/[0.06] bg-white/[0.03] px-4 py-3 backdrop-blur-xl"
+            >
+              <div class="flex gap-2">
+                <span
+                  class="h-3 w-3 rounded-full bg-[#ff5f57] ring-1 ring-black/10"
                 />
-              </svg>
-              <span class="absolute inset-0 flex items-center justify-center text-sm font-light tabular-nums text-white/70">
-                {{ values[i] }}%
-              </span>
+                <span
+                  class="h-3 w-3 rounded-full bg-[#febc2e] ring-1 ring-black/10"
+                />
+                <span
+                  class="h-3 w-3 rounded-full bg-[#3b82f6] ring-1 ring-black/10"
+                />
+              </div>
+              <span
+                class="ml-1 flex-1 truncate text-center text-[11px] font-medium tracking-wide text-white/35"
+              >Zzzappy</span>
             </div>
-            <span class="text-[11px] text-white/30">{{ t(`zzzappy.${dim.key}`) }}</span>
+            <div class="relative bg-[#0d0815] p-2 sm:p-3">
+              <img
+                :src="screenshotSrc"
+                :alt="t('zzzappy.armTitle')"
+                class="h-auto w-full rounded-lg object-cover object-top shadow-inner"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
           </div>
         </div>
 
-        <!-- Right: text -->
-        <div class="order-1 lg:order-2">
-          <h2
-            class="mb-5 text-3xl font-extralight tracking-tight text-white sm:text-4xl"
-            :style="{ opacity: visible ? '1' : '0', transform: visible ? 'translateY(0)' : 'translateY(24px)', transition: 'all 0.7s cubic-bezier(0.16,1,0.3,1)' }"
-          >
-            {{ t('zzzappy.armTitle') }}
-          </h2>
-          <p
-            class="mb-8 text-base leading-relaxed text-white/45"
-            :style="{ opacity: visible ? '1' : '0', transform: visible ? 'translateY(0)' : 'translateY(16px)', transition: 'all 0.6s cubic-bezier(0.16,1,0.3,1) 0.1s' }"
-          >
-            {{ t('zzzappy.armDesc') }}
-          </p>
+        <!-- Text RIGHT on desktop; first on mobile -->
+        <div class="order-1 flex flex-col gap-10 lg:order-2">
+          <div class="flex flex-col gap-5">
+            <p
+              class="text-xs font-semibold uppercase tracking-widest text-[#fb7185]"
+              :style="{
+                opacity: visible ? 1 : 0,
+                transform: visible ? 'translateY(0)' : 'translateY(12px)',
+                transition: 'opacity 0.55s ease 0.05s, transform 0.55s ease 0.05s',
+              }"
+            >
+              {{ t('zzzappy.armSubtitle') }}
+            </p>
+            <h2
+              class="text-4xl font-bold leading-tight text-white md:text-5xl md:leading-[1.1]"
+              :style="{
+                opacity: visible ? 1 : 0,
+                transform: visible ? 'translateY(0)' : 'translateY(20px)',
+                transition:
+                  'opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.1s, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.1s',
+              }"
+            >
+              {{ t('zzzappy.armTitle') }}
+            </h2>
+            <p
+              class="max-w-xl text-lg leading-relaxed text-white/65"
+              :style="{
+                opacity: visible ? 1 : 0,
+                transform: visible ? 'translateY(0)' : 'translateY(16px)',
+                transition:
+                  'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.18s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.18s',
+              }"
+            >
+              {{ t('zzzappy.armDesc') }}
+            </p>
+          </div>
 
-          <!-- Presets -->
           <div
-            :style="{ opacity: visible ? '1' : '0', transition: 'opacity 0.6s ease 0.3s' }"
+            class="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-3.5"
           >
-            <p class="mb-3 text-xs font-medium tracking-widest text-white/25 uppercase">{{ t('zzzappy.armPresets') }}</p>
-            <div class="flex flex-wrap gap-2.5">
+            <div
+              v-for="(d, i) in dimensions"
+              :key="d.i18nKey"
+              class="arm-frost flex flex-col items-center gap-2.5 rounded-2xl px-3 py-4 text-center"
+              :style="{
+                opacity: visible ? 1 : 0,
+                transform: visible ? 'translateY(0)' : 'translateY(14px)',
+                transition: `opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${0.26 + i * 0.06}s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${0.26 + i * 0.06}s`,
+              }"
+            >
               <span
-                v-for="(p, i) in presets" :key="p"
-                class="rounded-full bg-white/[0.04] px-4 py-1.5 text-xs ring-1 ring-white/[0.06]"
-                :class="presetColors[i]"
+                class="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br text-lg leading-none ring-1 ring-white/[0.08]"
+                :class="d.ring"
+                aria-hidden="true"
               >
-                {{ t(`zzzappy.${p}`) }}
+                {{ d.icon }}
               </span>
+              <span
+                class="text-[13px] font-medium leading-snug text-white/80"
+              >{{ t(`zzzappy.${d.i18nKey}`) }}</span>
             </div>
           </div>
+
+          <p
+            class="max-w-xl text-xs leading-relaxed text-[#fda4af]/70"
+            :style="{
+              opacity: visible ? 1 : 0,
+              transform: visible ? 'translateY(0)' : 'translateY(10px)',
+              transition: 'opacity 0.55s ease 0.55s, transform 0.55s ease 0.55s',
+            }"
+          >
+            {{ t('zzzappy.armPresets') }}
+          </p>
         </div>
       </div>
     </div>
@@ -115,9 +188,23 @@ const C = circumference(R)
 </template>
 
 <style scoped>
-.zz-grain {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+.arm-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px 256px;
+}
+
+.arm-frost {
+  background-color: rgb(255 255 255 / 0.04);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 1px 0 0 rgb(255 255 255 / 0.04) inset;
+  border: 1px solid rgb(255 255 255 / 0.06);
+}
+
+.arm-window {
+  box-shadow:
+    0 32px 80px -20px rgba(0, 0, 0, 0.75),
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset;
 }
 </style>

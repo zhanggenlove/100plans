@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { useSeoMeta } from '@/composables/useSeoMeta'
 import ZzzappyHero from '@/components/zzzappy/ZzzappyHero.vue'
-import ZzzappyProblem from '@/components/zzzappy/ZzzappyProblem.vue'
-import ZzzappyDualGuard from '@/components/zzzappy/ZzzappyDualGuard.vue'
+import ZzzappyScreenshots from '@/components/zzzappy/ZzzappyScreenshots.vue'
 import ZzzappyEyeCare from '@/components/zzzappy/ZzzappyEyeCare.vue'
 import ZzzappyArmGuard from '@/components/zzzappy/ZzzappyArmGuard.vue'
 import ZzzappySmartPause from '@/components/zzzappy/ZzzappySmartPause.vue'
@@ -13,16 +12,15 @@ import ZzzappyPricing from '@/components/zzzappy/ZzzappyPricing.vue'
 import ZzzappyCTA from '@/components/zzzappy/ZzzappyCTA.vue'
 
 useSeoMeta(() => ({
-  title: 'Zzzappy — Rest well, smile more.',
-  description: 'Dual health guard for your Mac. Protects both your eyes and arms.',
+  title: 'Zzzappy — Dual Health Guard for Eyes & Arms',
+  description: 'A health companion for Mac that monitors screen time and input load simultaneously. Prevent eye strain and RSI with smart breaks.',
 }))
 </script>
 
 <template>
   <div class="zzzappy-landing">
     <ZzzappyHero />
-    <ZzzappyProblem />
-    <ZzzappyDualGuard />
+    <ZzzappyScreenshots />
     <ZzzappyEyeCare />
     <ZzzappyArmGuard />
     <ZzzappySmartPause />

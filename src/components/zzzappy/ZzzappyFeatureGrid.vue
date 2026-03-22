@@ -1,71 +1,127 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { Volume2, Keyboard, Monitor, Globe, Sparkles, SkipForward, Lock, MonitorSmartphone } from 'lucide-vue-next'
 
 const { t } = useI18n()
+
+const features = [
+  { emoji: '🎵', titleKey: 'moreF1', descKey: 'moreF1d' },
+  { emoji: '⌨️', titleKey: 'moreF2', descKey: 'moreF2d' },
+  { emoji: '📊', titleKey: 'moreF3', descKey: 'moreF3d' },
+  { emoji: '🌐', titleKey: 'moreF4', descKey: 'moreF4d' },
+  { emoji: '👁', titleKey: 'moreF5', descKey: 'moreF5d' },
+  { emoji: '⏭', titleKey: 'moreF6', descKey: 'moreF6d' },
+  { emoji: '🖥', titleKey: 'moreF7', descKey: 'moreF7d' },
+  { emoji: '🚀', titleKey: 'moreF8', descKey: 'moreF8d' },
+] as const
+
+const ringVariants = [
+  'bg-[#f97316]/10 ring-[#f97316]/25 text-[#f97316]',
+  'bg-[#ec4899]/10 ring-[#ec4899]/25 text-[#ec4899]',
+  'bg-[#8b5cf6]/10 ring-[#8b5cf6]/25 text-[#8b5cf6]',
+  'bg-[#3b82f6]/10 ring-[#3b82f6]/25 text-[#3b82f6]',
+] as const
+
 const visible = ref(false)
-const el = ref<HTMLElement | null>(null)
+const sectionRef = ref<HTMLElement | null>(null)
 
-const items = [
-  { key: 'gridSounds', descKey: 'gridSoundsDesc', icon: Volume2, color: 'text-amber-400 bg-amber-500/10' },
-  { key: 'gridShortcuts', descKey: 'gridShortcutsDesc', icon: Keyboard, color: 'text-blue-400 bg-blue-500/10' },
-  { key: 'gridMenuBar', descKey: 'gridMenuBarDesc', icon: Monitor, color: 'text-emerald-400 bg-emerald-500/10' },
-  { key: 'gridLanguages', descKey: 'gridLanguagesDesc', icon: Globe, color: 'text-purple-400 bg-purple-500/10' },
-  { key: 'gridMicro', descKey: 'gridMicroDesc', icon: Sparkles, color: 'text-cyan-400 bg-cyan-500/10' },
-  { key: 'gridSkip', descKey: 'gridSkipDesc', icon: SkipForward, color: 'text-rose-400 bg-rose-500/10' },
-  { key: 'gridLock', descKey: 'gridLockDesc', icon: Lock, color: 'text-indigo-400 bg-indigo-500/10' },
-  { key: 'gridMultiDisplay', descKey: 'gridMultiDisplayDesc', icon: MonitorSmartphone, color: 'text-teal-400 bg-teal-500/10' },
-]
+let observer: IntersectionObserver | null = null
 
-let obs: IntersectionObserver | null = null
+function cardStyle(index: number) {
+  const delay = 0.1 + index * 0.07
+  return {
+    opacity: visible.value ? 1 : 0,
+    transform: visible.value ? 'translateY(0)' : 'translateY(20px)',
+    transition: `opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s, transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`,
+  }
+}
+
+function headingStyle() {
+  return {
+    opacity: visible.value ? 1 : 0,
+    transform: visible.value ? 'translateY(0)' : 'translateY(16px)',
+    transition: 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+  }
+}
+
 onMounted(() => {
-  if (!el.value) return
-  obs = new IntersectionObserver(([e]) => {
-    if (e.isIntersecting) { visible.value = true; obs?.disconnect() }
-  }, { threshold: 0.1 })
-  obs.observe(el.value)
+  if (!sectionRef.value) return
+  observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        visible.value = true
+        observer?.disconnect()
+      }
+    },
+    { threshold: 0.12, rootMargin: '0px 0px -5% 0px' },
+  )
+  observer.observe(sectionRef.value)
 })
-onUnmounted(() => obs?.disconnect())
+
+onUnmounted(() => {
+  observer?.disconnect()
+  observer = null
+})
 </script>
 
 <template>
-  <section ref="el" class="relative overflow-hidden bg-[#070b14] py-28 sm:py-36">
-    <div class="zz-grain pointer-events-none absolute inset-0" />
-    <div class="relative z-10 mx-auto max-w-5xl px-6">
+  <section
+    ref="sectionRef"
+    class="relative overflow-hidden bg-[#0d0815] py-32 px-6"
+  >
+    <div
+      class="pointer-events-none absolute -left-32 top-1/4 h-72 w-72 rounded-full blur-[100px]"
+      style="background: radial-gradient(circle, rgba(236, 72, 153, 0.12) 0%, transparent 70%)"
+      aria-hidden="true"
+    />
+    <div
+      class="pointer-events-none absolute -right-24 bottom-1/4 h-80 w-80 rounded-full blur-[110px]"
+      style="background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%)"
+      aria-hidden="true"
+    />
+
+    <div class="relative z-10 mx-auto max-w-6xl">
       <h2
-        class="mb-14 text-center text-3xl font-extralight tracking-tight text-white sm:text-4xl md:text-5xl"
-        :style="{ opacity: visible ? '1' : '0', transform: visible ? 'translateY(0)' : 'translateY(24px)', transition: 'all 0.7s cubic-bezier(0.16,1,0.3,1)' }"
+        class="feature-heading mb-14 text-center text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl"
+        :style="headingStyle()"
       >
-        {{ t('zzzappy.gridTitle') }}
+        {{ t('zzzappy.moreTitle') }}
       </h2>
 
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div
-          v-for="(item, i) in items" :key="item.key"
-          class="zz-frost group rounded-2xl p-5 transition-all duration-300 hover:-translate-y-0.5"
-          :style="{ opacity: visible ? '1' : '0', transform: visible ? 'translateY(0)' : 'translateY(20px)', transition: `all 0.5s cubic-bezier(0.16,1,0.3,1) ${0.1 + i * 0.06}s` }"
+      <div
+        class="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-5 lg:grid-cols-4 lg:gap-6"
+      >
+        <article
+          v-for="(item, index) in features"
+          :key="item.titleKey"
+          class="feature-card flex flex-col rounded-2xl bg-white/[0.04] p-6 ring-1 ring-white/[0.06] backdrop-blur transition-shadow duration-300 hover:ring-white/[0.1]"
+          :style="cardStyle(index)"
         >
-          <div class="mb-3.5 flex h-10 w-10 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110" :class="item.color.split(' ')[1]">
-            <component :is="item.icon" class="h-5 w-5" :class="item.color.split(' ')[0]" />
+          <div
+            class="mb-4 flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-lg ring-1 backdrop-blur-sm"
+            :class="ringVariants[index % ringVariants.length]"
+          >
+            <span aria-hidden="true">{{ item.emoji }}</span>
           </div>
-          <h3 class="mb-1 text-sm font-medium text-white/80">{{ t(`zzzappy.${item.key}`) }}</h3>
-          <p class="text-xs leading-relaxed text-white/35">{{ t(`zzzappy.${item.descKey}`) }}</p>
-        </div>
+          <h3 class="mb-2 text-sm font-medium leading-snug text-white/90">
+            {{ t(`zzzappy.${item.titleKey}`) }}
+          </h3>
+          <p class="text-xs leading-relaxed text-white/45">
+            {{ t(`zzzappy.${item.descKey}`) }}
+          </p>
+        </article>
       </div>
     </div>
   </section>
 </template>
 
 <style scoped>
-.zz-frost {
-  background: rgba(255,255,255,0.03);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.06);
-}
-.zz-grain {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 256px 256px;
+@media (prefers-reduced-motion: reduce) {
+  .feature-heading,
+  .feature-card {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }
 </style>

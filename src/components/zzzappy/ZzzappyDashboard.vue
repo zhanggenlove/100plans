@@ -1,96 +1,136 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { Shield } from 'lucide-vue-next'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
+
+const loc = computed(() => (['zh', 'ja'].includes(locale.value) ? locale.value : 'en'))
+
+const screenshotSrc = computed(
+  () => `/images/screenshots/zzzappy/${loc.value}/07_dashboard.png`,
+)
+
 const visible = ref(false)
 const el = ref<HTMLElement | null>(null)
-
-const bars = [65, 80, 45, 70, 55, 90, 75]
-const days = ['M', 'T', 'W', 'T', 'F', 'S', 'S']
 
 let obs: IntersectionObserver | null = null
 onMounted(() => {
   if (!el.value) return
-  obs = new IntersectionObserver(([e]) => {
-    if (e.isIntersecting) { visible.value = true; obs?.disconnect() }
-  }, { threshold: 0.15 })
+  obs = new IntersectionObserver(
+    ([e]) => {
+      if (e.isIntersecting) {
+        visible.value = true
+        obs?.disconnect()
+      }
+    },
+    { threshold: 0.12 },
+  )
   obs.observe(el.value)
 })
 onUnmounted(() => obs?.disconnect())
 </script>
 
 <template>
-  <section ref="el" class="relative overflow-hidden bg-[#0a0e1a] py-28 sm:py-36">
-    <div class="zz-grain pointer-events-none absolute inset-0" />
-    <div class="relative z-10 mx-auto max-w-5xl px-6">
-      <div class="grid items-center gap-16 lg:grid-cols-2">
-        <!-- Left: text -->
-        <div>
+  <section
+    ref="el"
+    class="dash-section relative overflow-hidden bg-[#0d0815] py-32"
+  >
+    <div class="dash-grain pointer-events-none absolute inset-0" />
+    <div
+      class="pointer-events-none absolute -left-20 top-1/3 h-[320px] w-[320px] rounded-full bg-[#f97316]/[0.06] blur-[90px]"
+    />
+    <div
+      class="pointer-events-none absolute -right-24 bottom-1/4 h-[300px] w-[300px] rounded-full bg-[#8b5cf6]/[0.07] blur-[95px]"
+    />
+    <div
+      class="pointer-events-none absolute left-1/3 top-0 h-[200px] w-[400px] rounded-full bg-[#ec4899]/[0.05] blur-[100px]"
+    />
+
+    <div class="relative z-10 mx-auto max-w-6xl px-6">
+      <div
+        class="grid grid-cols-1 items-center gap-14 lg:grid-cols-2 lg:gap-16 xl:gap-20"
+      >
+        <!-- Left: copy -->
+        <div class="flex flex-col gap-6 text-center lg:text-left">
+          <p
+            class="text-xs font-semibold uppercase tracking-[0.2em] text-[#fb7185]"
+            :style="{
+              opacity: visible ? 1 : 0,
+              transform: visible ? 'translateY(0)' : 'translateY(12px)',
+              transition:
+                'opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1)',
+            }"
+          >
+            {{ t('zzzappy.dashSubtitle') }}
+          </p>
           <h2
-            class="mb-5 text-3xl font-extralight tracking-tight text-white sm:text-4xl"
-            :style="{ opacity: visible ? '1' : '0', transform: visible ? 'translateY(0)' : 'translateY(24px)', transition: 'all 0.7s cubic-bezier(0.16,1,0.3,1)' }"
+            class="text-3xl font-bold leading-tight text-white sm:text-4xl md:text-[2.75rem] md:leading-[1.12]"
+            :style="{
+              opacity: visible ? 1 : 0,
+              transform: visible ? 'translateY(0)' : 'translateY(20px)',
+              transition:
+                'opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.06s, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.06s',
+            }"
           >
             {{ t('zzzappy.dashTitle') }}
           </h2>
           <p
-            class="mb-8 text-base leading-relaxed text-white/45"
-            :style="{ opacity: visible ? '1' : '0', transform: visible ? 'translateY(0)' : 'translateY(16px)', transition: 'all 0.6s cubic-bezier(0.16,1,0.3,1) 0.1s' }"
+            class="mx-auto max-w-xl text-base leading-relaxed text-white/65 lg:mx-0"
+            :style="{
+              opacity: visible ? 1 : 0,
+              transform: visible ? 'translateY(0)' : 'translateY(16px)',
+              transition:
+                'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.12s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.12s',
+            }"
           >
             {{ t('zzzappy.dashDesc') }}
           </p>
-          <div
-            class="flex items-start gap-3 rounded-xl bg-emerald-500/[0.06] p-4 ring-1 ring-emerald-500/10"
-            :style="{ opacity: visible ? '1' : '0', transition: 'opacity 0.6s ease 0.3s' }"
+          <p
+            class="mx-auto flex max-w-xl items-start gap-2 text-left text-sm leading-relaxed text-white/45 lg:mx-0"
+            :style="{
+              opacity: visible ? 1 : 0,
+              transform: visible ? 'translateY(0)' : 'translateY(12px)',
+              transition:
+                'opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.2s, transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.2s',
+            }"
           >
-            <Shield class="mt-0.5 h-5 w-5 shrink-0 text-emerald-400" />
-            <p class="text-sm leading-relaxed text-emerald-300/70">{{ t('zzzappy.dashPrivacy') }}</p>
-          </div>
+            <span class="shrink-0 select-none" aria-hidden="true">🔒</span>
+            <span>{{ t('zzzappy.dashPrivacy') }}</span>
+          </p>
         </div>
 
-        <!-- Right: chart mockup -->
+        <!-- Right: macOS window + screenshot -->
         <div
-          class="zz-frost rounded-3xl p-6 sm:p-8"
-          :style="{ opacity: visible ? '1' : '0', transform: visible ? 'scale(1)' : 'scale(0.92)', transition: 'all 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s' }"
+          :style="{
+            opacity: visible ? 1 : 0,
+            transform: visible ? 'translateY(0) scale(1)' : 'translateY(28px) scale(0.97)',
+            transition:
+              'opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.1s, transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.1s',
+          }"
         >
-          <div class="mb-4 flex items-center justify-between">
-            <span class="text-xs font-medium tracking-wider text-white/30 uppercase">Weekly Screen Time</span>
-            <span class="text-xs text-emerald-400/60">86% completion</span>
-          </div>
-
-          <!-- Bar chart -->
-          <div class="flex items-end gap-3" style="height: 140px">
+          <div
+            class="dash-window overflow-hidden rounded-2xl bg-[#14101c] ring-1 ring-white/[0.12]"
+          >
             <div
-              v-for="(bar, i) in bars" :key="i"
-              class="flex flex-1 flex-col items-center justify-end gap-2"
-              style="height: 100%"
+              class="flex items-center gap-3 border-b border-white/[0.06] bg-white/[0.03] px-4 py-3 backdrop-blur-xl"
             >
-              <div
-                class="w-full rounded-t-lg"
-                :style="{
-                  height: visible ? `${bar}%` : '0%',
-                  background: `linear-gradient(to top, rgba(34,197,94,0.5), rgba(34,197,94,0.2))`,
-                  transition: `height 1s cubic-bezier(0.16,1,0.3,1) ${0.4 + i * 0.08}s`,
-                }"
+              <div class="flex gap-2">
+                <span class="h-3 w-3 rounded-full bg-[#ff5f57] ring-1 ring-black/10" />
+                <span class="h-3 w-3 rounded-full bg-[#febc2e] ring-1 ring-black/10" />
+                <span class="h-3 w-3 rounded-full bg-[#3b82f6] ring-1 ring-black/10" />
+              </div>
+              <span
+                class="ml-1 flex-1 truncate text-center text-[11px] font-medium tracking-wide text-white/35"
+              >Zzzappy</span>
+            </div>
+            <div class="relative bg-[#0d0815] p-2 sm:p-3">
+              <img
+                :src="screenshotSrc"
+                :alt="t('zzzappy.dashTitle')"
+                class="h-auto w-full rounded-lg object-cover object-top shadow-inner"
+                loading="lazy"
+                decoding="async"
               />
-              <span class="text-[10px] text-white/20">{{ days[i] }}</span>
-            </div>
-          </div>
-
-          <!-- Mini stats -->
-          <div class="mt-6 grid grid-cols-3 gap-3 border-t border-white/[0.04] pt-5">
-            <div class="text-center">
-              <p class="text-lg font-light tabular-nums text-white/70">6.2h</p>
-              <p class="text-[10px] text-white/25">Avg / day</p>
-            </div>
-            <div class="text-center">
-              <p class="text-lg font-light tabular-nums text-white/70">42</p>
-              <p class="text-[10px] text-white/25">Breaks taken</p>
-            </div>
-            <div class="text-center">
-              <p class="text-lg font-light tabular-nums text-emerald-400/70">7d</p>
-              <p class="text-[10px] text-white/25">Streak</p>
             </div>
           </div>
         </div>
@@ -100,14 +140,18 @@ onUnmounted(() => obs?.disconnect())
 </template>
 
 <style scoped>
-.zz-frost {
-  background: rgba(255,255,255,0.03);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.06);
-}
-.zz-grain {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+.dash-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px 256px;
+}
+
+.dash-window {
+  box-shadow:
+    0 32px 80px -20px rgba(0, 0, 0, 0.75),
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+    0 0 48px -8px rgba(249, 115, 22, 0.28),
+    0 0 56px -10px rgba(236, 72, 153, 0.22),
+    0 0 64px -12px rgba(139, 92, 246, 0.2);
 }
 </style>

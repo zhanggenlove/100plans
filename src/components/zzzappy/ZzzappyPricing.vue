@@ -3,70 +3,145 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
+
 const visible = ref(false)
-const el = ref<HTMLElement | null>(null)
+const sectionRef = ref<HTMLElement | null>(null)
 
-const plans = [
-  { key: 'pricingMonthly', price: 'TBD', period: '/mo', highlight: false },
-  { key: 'pricingYearly', price: 'TBD', period: '/yr', highlight: true, badge: 'pricingBest' },
-  { key: 'pricingLifetime', price: 'TBD', period: '', highlight: false, sub: 'pricingOnce' },
-]
+let observer: IntersectionObserver | null = null
 
-let obs: IntersectionObserver | null = null
 onMounted(() => {
-  if (!el.value) return
-  obs = new IntersectionObserver(([e]) => {
-    if (e.isIntersecting) { visible.value = true; obs?.disconnect() }
-  }, { threshold: 0.15 })
-  obs.observe(el.value)
+  if (!sectionRef.value) return
+  observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        visible.value = true
+        observer?.disconnect()
+      }
+    },
+    { threshold: 0.15 },
+  )
+  observer.observe(sectionRef.value)
 })
-onUnmounted(() => obs?.disconnect())
+
+onUnmounted(() => {
+  observer?.disconnect()
+})
+
+function fadeStyle(delayMs: number) {
+  return {
+    opacity: visible.value ? 1 : 0,
+    transform: visible.value ? 'translateY(0)' : 'translateY(20px)',
+    transition: `opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1) ${delayMs}ms, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) ${delayMs}ms`,
+  }
+}
 </script>
 
 <template>
-  <section ref="el" class="relative overflow-hidden bg-[#0a0e1a] py-28 sm:py-36">
-    <div class="zz-grain pointer-events-none absolute inset-0" />
-    <div class="pointer-events-none absolute left-1/2 top-0 h-[400px] w-[600px] -translate-x-1/2 rounded-full bg-purple-600/[0.06] blur-[120px]" />
+  <section
+    ref="sectionRef"
+    class="zzzappy-pricing relative overflow-hidden bg-[#0d0815]"
+  >
+    <div
+      class="pointer-events-none absolute inset-0 opacity-40"
+      aria-hidden="true"
+    >
+      <div
+        class="absolute -left-1/4 top-0 h-[420px] w-[420px] rounded-full blur-[100px]"
+        style="background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, transparent 70%)"
+      />
+      <div
+        class="absolute -right-1/4 bottom-0 h-[380px] w-[380px] rounded-full blur-[100px]"
+        style="background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%)"
+      />
+    </div>
 
-    <div class="relative z-10 mx-auto max-w-4xl px-6 text-center">
+    <div class="relative z-10 mx-auto max-w-5xl px-6 py-32">
       <h2
-        class="mb-4 text-3xl font-extralight tracking-tight text-white sm:text-4xl md:text-5xl"
-        :style="{ opacity: visible ? '1' : '0', transform: visible ? 'translateY(0)' : 'translateY(24px)', transition: 'all 0.7s cubic-bezier(0.16,1,0.3,1)' }"
+        class="text-center text-3xl font-semibold tracking-tight text-white sm:text-4xl"
+        :style="fadeStyle(0)"
       >
         {{ t('zzzappy.pricingTitle') }}
       </h2>
       <p
-        class="mb-14 text-base text-emerald-400/60"
-        :style="{ opacity: visible ? '1' : '0', transition: 'opacity 0.6s ease 0.15s' }"
+        class="mx-auto mt-4 max-w-xl text-center text-base text-white/55"
+        :style="fadeStyle(80)"
       >
         {{ t('zzzappy.pricingTrial') }}
       </p>
 
-      <div class="grid gap-5 sm:grid-cols-3">
-        <div
-          v-for="(plan, i) in plans" :key="plan.key"
-          class="relative rounded-3xl p-7 text-center transition-all duration-300 hover:-translate-y-1"
-          :class="plan.highlight ? 'zz-frost-highlight' : 'zz-frost'"
-          :style="{ opacity: visible ? '1' : '0', transform: visible ? 'translateY(0)' : 'translateY(20px)', transition: `all 0.6s cubic-bezier(0.16,1,0.3,1) ${0.2 + i * 0.1}s` }"
+      <div
+        class="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-5"
+      >
+        <!-- Monthly -->
+        <article
+          class="pricing-card flex flex-col rounded-2xl p-8 text-center"
+          :style="fadeStyle(140)"
+        >
+          <h3 class="text-sm font-medium uppercase tracking-widest text-white/45">
+            {{ t('zzzappy.pricingMonthly') }}
+          </h3>
+          <div class="mt-6 flex flex-col items-center gap-1">
+            <div class="flex items-baseline justify-center gap-1.5">
+              <span class="text-4xl font-light tabular-nums text-white">¥8</span>
+              <span class="text-sm text-white/35">/mo</span>
+            </div>
+            <span class="text-sm text-white/40">$0.99/mo</span>
+          </div>
+        </article>
+
+        <!-- Yearly (highlight) -->
+        <article
+          class="relative rounded-2xl p-[1px]"
+          :style="{
+            ...fadeStyle(220),
+            background: 'linear-gradient(135deg, #f97316 0%, #ec4899 50%, #8b5cf6 100%)',
+          }"
         >
           <span
-            v-if="plan.badge"
-            class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-emerald-500/90 px-3.5 py-1 text-[10px] font-semibold tracking-wider text-white uppercase"
+            class="absolute -top-3 left-1/2 z-10 -translate-x-1/2 rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-white shadow-lg"
+            style="background: linear-gradient(90deg, #f97316, #ec4899, #8b5cf6)"
           >
-            {{ t(`zzzappy.${plan.badge}`) }}
+            {{ t('zzzappy.pricingBest') }}
           </span>
-          <h3 class="mb-4 text-sm font-medium tracking-wider text-white/50 uppercase">{{ t(`zzzappy.${plan.key}`) }}</h3>
-          <div class="mb-1 flex items-baseline justify-center gap-1">
-            <span class="text-3xl font-light text-white">{{ plan.price }}</span>
-            <span v-if="plan.period" class="text-sm text-white/30">{{ plan.period }}</span>
+          <div
+            class="pricing-card-inner flex h-full flex-col rounded-[15px] p-8 pt-10 text-center"
+          >
+            <h3 class="text-sm font-medium uppercase tracking-widest text-white/45">
+              {{ t('zzzappy.pricingYearly') }}
+            </h3>
+            <div class="mt-6 flex flex-col items-center gap-1">
+              <div class="flex items-baseline justify-center gap-1.5">
+                <span class="text-4xl font-light tabular-nums text-white">¥48</span>
+                <span class="text-sm text-white/35">/yr</span>
+              </div>
+              <span class="text-sm text-white/40">$5.99/yr</span>
+            </div>
           </div>
-          <p v-if="plan.sub" class="text-xs text-white/30">{{ t(`zzzappy.${plan.sub}`) }}</p>
-        </div>
+        </article>
+
+        <!-- Lifetime -->
+        <article
+          class="pricing-card flex flex-col rounded-2xl p-8 text-center"
+          :style="fadeStyle(300)"
+        >
+          <h3 class="text-sm font-medium uppercase tracking-widest text-white/45">
+            {{ t('zzzappy.pricingLifetime') }}
+          </h3>
+          <div class="mt-6 flex flex-col items-center gap-1">
+            <div class="flex items-baseline justify-center gap-1.5">
+              <span class="text-4xl font-light tabular-nums text-white">¥128</span>
+            </div>
+            <span class="text-sm text-white/40">$14.99</span>
+          </div>
+          <p class="mt-4 text-xs leading-relaxed text-white/38">
+            {{ t('zzzappy.pricingOnce') }}
+          </p>
+        </article>
       </div>
 
       <p
-        class="mt-8 text-xs text-white/25"
-        :style="{ opacity: visible ? '1' : '0', transition: 'opacity 0.6s ease 0.6s' }"
+        class="mx-auto mt-12 max-w-lg text-center text-xs leading-relaxed text-white/30"
+        :style="fadeStyle(380)"
       >
         {{ t('zzzappy.pricingManage') }}
       </p>
@@ -75,20 +150,23 @@ onUnmounted(() => obs?.disconnect())
 </template>
 
 <style scoped>
-.zz-frost {
-  background: rgba(255,255,255,0.03);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.06);
+.pricing-card {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
-.zz-frost-highlight {
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(34,197,94,0.2);
-  box-shadow: 0 0 40px rgba(34,197,94,0.06);
-}
-.zz-grain {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 256px 256px;
+
+.pricing-card-inner {
+  background: rgba(13, 8, 21, 0.75);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 </style>
