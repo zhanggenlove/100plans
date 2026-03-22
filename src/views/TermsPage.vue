@@ -9,10 +9,12 @@ import { useProduct } from '@/composables/useProduct'
 import { useSeoMeta } from '@/composables/useSeoMeta'
 import type { Locale } from '@/types/product'
 
+const props = defineProps<{ slugOverride?: string }>()
+
 const md = new MarkdownIt()
 const { locale, t } = useI18n()
 const router = useRouter()
-const { localized, product, slug } = useProduct()
+const { localized, product, slug } = useProduct(props.slugOverride)
 
 const termsMarkdown = ref('')
 const termsLoading = ref(true)

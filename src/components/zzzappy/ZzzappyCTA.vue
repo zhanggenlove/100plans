@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRoute } from 'vue-router'
 
 const { t } = useI18n()
+const route = useRoute()
 
 const el = ref<HTMLElement | null>(null)
 const visible = ref(false)
@@ -133,6 +135,22 @@ onUnmounted(() => obs?.disconnect())
               </p>
             </div>
           </div>
+        </div>
+
+        <div class="mt-12 flex items-center justify-center gap-6 text-xs text-white/30">
+          <router-link
+            :to="`/${route.params.locale}/app/zzzappy/privacy`"
+            class="transition-colors hover:text-white/60"
+          >
+            {{ t('product.privacy') }}
+          </router-link>
+          <span class="text-white/10">|</span>
+          <router-link
+            :to="`/${route.params.locale}/app/zzzappy/terms`"
+            class="transition-colors hover:text-white/60"
+          >
+            {{ t('product.terms') }}
+          </router-link>
         </div>
       </div>
     </div>

@@ -35,6 +35,8 @@ const routes: RouteRecordRaw[] = [
     children: [
       { path: '', name: 'home', component: HomePage },
       { path: 'app/zzzappy', name: 'zzzappy', component: ZzzappyLandingPage },
+      { path: 'app/zzzappy/privacy', name: 'zzzappy-privacy', component: PrivacyPage, props: { slugOverride: 'zzzappy' } },
+      { path: 'app/zzzappy/terms', name: 'zzzappy-terms', component: TermsPage, props: { slugOverride: 'zzzappy' } },
       { path: 'app/:slug', name: 'product', component: ProductPage },
       { path: 'app/:slug/privacy', name: 'privacy', component: PrivacyPage },
       { path: 'app/:slug/terms', name: 'terms', component: TermsPage },
