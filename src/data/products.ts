@@ -487,8 +487,9 @@ export const products: Product[] = [
     icon: '/images/apps/music-switch.png',
     platforms: ['iOS'],
     category: { en: 'Music', zh: '音乐', ja: 'ミュージック' },
-    status: 'coming-soon',
-    gradient: { from: 'indigo-500', to: 'violet-500' },
+    status: 'released',
+    appStoreUrl: 'https://apps.apple.com/app/id6761005341',
+    gradient: { from: 'red-500', to: 'violet-600' },
     screenshots: [],
     features: [
       {

@@ -4,6 +4,7 @@ import { nextTick } from 'vue'
 const HomePage = () => import('@/views/HomePage.vue')
 const ProductPage = () => import('@/views/ProductPage.vue')
 const ZzzappyLandingPage = () => import('@/views/ZzzappyLandingPage.vue')
+const MusicSwitchLandingPage = () => import('@/views/MusicSwitchLandingPage.vue')
 const PrivacyPage = () => import('@/views/PrivacyPage.vue')
 const TermsPage = () => import('@/views/TermsPage.vue')
 const AboutPage = () => import('@/views/AboutPage.vue')
@@ -37,6 +38,9 @@ const routes: RouteRecordRaw[] = [
       { path: 'app/zzzappy', name: 'zzzappy', component: ZzzappyLandingPage },
       { path: 'app/zzzappy/privacy', name: 'zzzappy-privacy', component: PrivacyPage, props: { slugOverride: 'zzzappy' } },
       { path: 'app/zzzappy/terms', name: 'zzzappy-terms', component: TermsPage, props: { slugOverride: 'zzzappy' } },
+      { path: 'app/music-switch', name: 'music-switch', component: MusicSwitchLandingPage },
+      { path: 'app/music-switch/privacy', name: 'music-switch-privacy', component: PrivacyPage, props: { slugOverride: 'music-switch' } },
+      { path: 'app/music-switch/terms', name: 'music-switch-terms', component: TermsPage, props: { slugOverride: 'music-switch' } },
       { path: 'app/:slug', name: 'product', component: ProductPage },
       { path: 'app/:slug/privacy', name: 'privacy', component: PrivacyPage },
       { path: 'app/:slug/terms', name: 'terms', component: TermsPage },
