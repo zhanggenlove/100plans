@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive, computed, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
+import ProductHuntBadge from '@/components/ProductHuntBadge.vue'
 
 const { t } = useI18n()
 const show = ref(false)
@@ -153,13 +154,25 @@ onUnmounted(() => {
         </a>
       </div>
 
+      <!-- Product Hunt badge -->
+      <div
+        class="mb-8"
+        :style="{
+          opacity: show ? '1' : '0',
+          transform: show ? 'translateY(0)' : 'translateY(14px)',
+          transition: 'all 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.48s',
+        }"
+      >
+        <ProductHuntBadge theme="light" />
+      </div>
+
       <!-- badges -->
       <div
         class="flex flex-wrap items-center justify-center gap-3"
         :style="{
           opacity: show ? '1' : '0',
           transform: show ? 'translateY(0)' : 'translateY(12px)',
-          transition: 'all 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.52s',
+          transition: 'all 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.56s',
         }"
       >
         <span
