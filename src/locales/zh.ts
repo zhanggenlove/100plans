@@ -170,6 +170,7 @@ export default {
     faq5a: '不会。Zzzappy 会在视频通话、会议、视频播放、全屏游戏时自动暂停，结束后自动恢复。',
   },
   ms: {
+    appName: '歌单迁移Pro',
     tagline: '跨平台歌单迁移，一键搞定',
     subtitle: '支持 Apple Music、YouTube Music、网易云音乐、QQ音乐四大平台，轻松迁移你珍藏的每一首歌。',
     cta: '免费下载',

@@ -170,6 +170,7 @@ export default {
     faq5a: 'いいえ。ビデオ通話、会議、動画再生、フルスクリーンゲーム中は自動一時停止し、終了後に自動再開します。',
   },
   ms: {
+    appName: 'Music Switch',
     tagline: 'プレイリスト移行を、ワンタップで',
     subtitle: 'Apple Music、YouTube Music、NetEase、QQ Music — 4大プラットフォーム間でプレイリストを自由に移行。',
     cta: '無料ダウンロード',

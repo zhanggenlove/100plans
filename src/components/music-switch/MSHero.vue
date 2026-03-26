@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, onMounted, onUnmounted } from 'vue'
+import { ref, reactive, computed, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
@@ -18,22 +18,48 @@ function onMouseMove(e: MouseEvent) {
   })
 }
 
+const platforms = [
+  { name: 'Apple Music', icon: '/images/platforms/apple_music.png', color: '#FF2F56' },
+  { name: 'YouTube Music', icon: '/images/platforms/youtube_music.png', color: '#FF0000' },
+  { name: 'NetEase Cloud', icon: '/images/platforms/netease.png', color: '#FF314A' },
+  { name: 'QQ Music', icon: '/images/platforms/qq_music.png', color: '#31C27C' },
+]
+
+const transferPairs = [
+  [0, 1], [1, 0], [2, 1], [0, 3], [3, 0],
+  [1, 2], [2, 3], [3, 1], [0, 2], [1, 3],
+]
+const pairIndex = ref(0)
+const transitioning = ref(false)
+
+const currentSource = computed(() => platforms[transferPairs[pairIndex.value][0]])
+const currentTarget = computed(() => platforms[transferPairs[pairIndex.value][1]])
+
+const songCounts = [128, 256, 89, 312, 67, 195, 421, 154, 73, 238]
+const currentSongCount = computed(() => songCounts[pairIndex.value])
+
+const progressValues = [87, 64, 92, 45, 78, 55, 96, 38, 71, 83]
+const currentProgress = computed(() => progressValues[pairIndex.value])
+
+let switchTimer: ReturnType<typeof setInterval> | undefined
+
 onMounted(() => {
   requestAnimationFrame(() => { show.value = true })
   window.addEventListener('mousemove', onMouseMove, { passive: true })
+  switchTimer = setInterval(() => {
+    transitioning.value = true
+    setTimeout(() => {
+      pairIndex.value = (pairIndex.value + 1) % transferPairs.length
+      transitioning.value = false
+    }, 400)
+  }, 3500)
 })
 
 onUnmounted(() => {
   window.removeEventListener('mousemove', onMouseMove)
   cancelAnimationFrame(rafId)
+  clearInterval(switchTimer)
 })
-
-const platforms = [
-  { name: 'Apple Music', icon: '/images/platforms/apple_music.png', color: '#FF2F56' },
-  { name: 'YouTube Music', icon: '/images/platforms/youtube_music.png', color: '#FF0000' },
-  { name: 'NetEase', icon: '/images/platforms/netease.png', color: '#FF314A' },
-  { name: 'QQ Music', icon: '/images/platforms/qq_music.png', color: '#31C27C' },
-]
 </script>
 
 <template>
@@ -68,7 +94,7 @@ const platforms = [
         <img src="/images/apps/music-switch-hd.png" alt="Music Switch" class="h-full w-full object-cover" />
       </div>
 
-      <!-- title -->
+      <!-- title (i18n) -->
       <h1
         class="mb-5 text-5xl font-extrabold tracking-tight text-gray-900 sm:text-6xl md:text-7xl dark:text-white"
         :style="{
@@ -77,7 +103,7 @@ const platforms = [
           transition: 'all 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.1s',
         }"
       >
-        <span class="ms-gradient-text">Music Switch</span>
+        <span class="ms-gradient-text">{{ t('ms.appName') }}</span>
       </h1>
 
       <!-- tagline -->
@@ -148,7 +174,7 @@ const platforms = [
         </span>
       </div>
 
-      <!-- dashboard mockup -->
+      <!-- dashboard mockup (dynamic switching) -->
       <div
         class="relative mx-auto mt-16 max-w-3xl"
         :style="{
@@ -165,16 +191,23 @@ const platforms = [
               <div class="h-3 w-3 rounded-full bg-yellow-400" />
               <div class="h-3 w-3 rounded-full bg-green-400" />
             </div>
-            <span class="text-xs font-medium text-gray-400">Music Switch</span>
+            <span class="text-xs font-medium text-gray-400">{{ t('ms.appName') }}</span>
           </div>
 
-          <!-- transfer flow -->
+          <!-- transfer flow (dynamic) -->
           <div class="flex flex-col items-center gap-6 sm:flex-row sm:gap-4">
-            <!-- source -->
-            <div class="flex-1 rounded-xl border border-gray-100 bg-gray-50/80 p-4 text-center dark:border-gray-800 dark:bg-gray-800/60">
-              <img :src="platforms[0].icon" alt="Apple Music" class="mx-auto mb-3 h-12 w-12 rounded-xl" />
-              <p class="text-sm font-semibold text-gray-800 dark:text-gray-200">Apple Music</p>
-              <p class="mt-1 text-xs text-gray-400">128 songs</p>
+            <!-- source (animated) -->
+            <div
+              class="ms-platform-slot flex-1 rounded-xl border border-gray-100 bg-gray-50/80 p-4 text-center dark:border-gray-800 dark:bg-gray-800/60"
+              :class="{ 'ms-fade-out': transitioning }"
+            >
+              <img
+                :src="currentSource.icon"
+                :alt="currentSource.name"
+                class="mx-auto mb-3 h-12 w-12 rounded-xl"
+              />
+              <p class="text-sm font-semibold text-gray-800 dark:text-gray-200">{{ currentSource.name }}</p>
+              <p class="mt-1 text-xs text-gray-400">{{ currentSongCount }} songs</p>
             </div>
 
             <!-- arrow animation -->
@@ -185,35 +218,66 @@ const platforms = [
               </svg>
             </div>
 
-            <!-- target -->
-            <div class="flex-1 rounded-xl border border-gray-100 bg-gray-50/80 p-4 text-center dark:border-gray-800 dark:bg-gray-800/60">
-              <img :src="platforms[1].icon" alt="YouTube Music" class="mx-auto mb-3 h-12 w-12 rounded-xl" />
-              <p class="text-sm font-semibold text-gray-800 dark:text-gray-200">YouTube Music</p>
+            <!-- target (animated) -->
+            <div
+              class="ms-platform-slot flex-1 rounded-xl border border-gray-100 bg-gray-50/80 p-4 text-center dark:border-gray-800 dark:bg-gray-800/60"
+              :class="{ 'ms-fade-out': transitioning }"
+            >
+              <img
+                :src="currentTarget.icon"
+                :alt="currentTarget.name"
+                class="mx-auto mb-3 h-12 w-12 rounded-xl"
+              />
+              <p class="text-sm font-semibold text-gray-800 dark:text-gray-200">{{ currentTarget.name }}</p>
               <p class="mt-1 text-xs text-gray-400">Syncing...</p>
             </div>
           </div>
 
-          <!-- progress -->
+          <!-- progress (dynamic) -->
           <div class="mt-6">
             <div class="mb-2 flex items-center justify-between text-xs">
               <span class="font-medium text-gray-600 dark:text-gray-400">Matching & Transferring</span>
-              <span class="font-bold text-[#F93839]">87%</span>
+              <span
+                class="ms-progress-num font-bold text-[#F93839] transition-opacity duration-300"
+                :class="{ 'opacity-0': transitioning }"
+              >
+                {{ currentProgress }}%
+              </span>
             </div>
             <div class="ms-progress h-2 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
-              <div class="ms-progress-bar h-full rounded-full" />
+              <div
+                class="ms-progress-bar h-full rounded-full transition-all duration-700 ease-out"
+                :style="{ width: `${currentProgress}%` }"
+              />
             </div>
           </div>
 
           <!-- platform strip -->
-          <div class="mt-6 flex items-center justify-center gap-4">
+          <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
             <div
-              v-for="p in platforms"
+              v-for="(p, i) in platforms"
               :key="p.name"
-              class="flex items-center gap-2 rounded-full bg-gray-50 px-3 py-1.5 dark:bg-gray-800"
+              class="flex items-center gap-2 rounded-full px-3 py-1.5 transition-all duration-300"
+              :class="[
+                (currentSource === platforms[i] || currentTarget === platforms[i])
+                  ? 'bg-gray-100 ring-1 ring-gray-200 dark:bg-gray-700 dark:ring-gray-600'
+                  : 'bg-gray-50 dark:bg-gray-800'
+              ]"
             >
               <img :src="p.icon" :alt="p.name" class="h-5 w-5 rounded" />
               <span class="text-[11px] font-medium text-gray-500 dark:text-gray-400">{{ p.name }}</span>
             </div>
+          </div>
+
+          <!-- pair indicator dots -->
+          <div class="mt-4 flex items-center justify-center gap-1.5">
+            <button
+              v-for="(_, i) in transferPairs"
+              :key="i"
+              class="h-1.5 rounded-full transition-all duration-300"
+              :class="pairIndex === i ? 'w-4 bg-[#F93839]' : 'w-1.5 bg-gray-200 dark:bg-gray-700'"
+              @click="pairIndex = i"
+            />
           </div>
         </div>
 
@@ -311,6 +375,15 @@ const platforms = [
   100% { background-position: -200% 0; }
 }
 
+/* platform slot transition */
+.ms-platform-slot {
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.ms-platform-slot.ms-fade-out {
+  opacity: 0;
+  transform: scale(0.95) translateY(6px);
+}
+
 .ms-transfer-arrow {
   display: flex;
   align-items: center;
@@ -330,7 +403,6 @@ const platforms = [
 }
 
 .ms-progress-bar {
-  width: 87%;
   background: linear-gradient(90deg, #F93839, #5856D6);
   animation: progress-pulse 2s ease-in-out infinite;
 }
@@ -365,5 +437,6 @@ const platforms = [
 @media (prefers-reduced-motion: reduce) {
   .ms-orb, .ms-cta, .ms-shimmer, .ms-dot, .ms-progress-bar, .ms-scroll-arrow { animation: none; }
   .ms-shimmer { display: none; }
+  .ms-platform-slot { transition: none; }
 }
 </style>

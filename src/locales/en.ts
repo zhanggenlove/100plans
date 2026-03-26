@@ -170,6 +170,7 @@ export default {
     faq5a: 'Zzzappy auto-pauses during video calls, meetings, video playback, and fullscreen gaming, resuming when your activity ends.',
   },
   ms: {
+    appName: 'Music Switch',
     tagline: 'Transfer Playlists Across Platforms, Effortlessly',
     subtitle: 'Supports Apple Music, YouTube Music, NetEase Cloud Music, and QQ Music. Move every song you love, wherever it lives.',
     cta: 'Free Download',
