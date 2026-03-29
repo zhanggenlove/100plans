@@ -103,6 +103,7 @@ function moreItemStyle(idx: number) {
       :status="localized.status"
       :gradient="localized.gradient"
       :app-store-url="localized.appStoreUrl"
+      :gumroad-url="localized.gumroadUrl"
       :website-url="localized.websiteUrl"
       :meta="{ rating: localized.meta.rating, ratingCount: localized.meta.ratingCount }"
     />

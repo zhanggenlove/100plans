@@ -13,6 +13,7 @@ defineProps<{
   status: 'released' | 'coming-soon'
   gradient: { from: string; to: string }
   appStoreUrl?: string
+  gumroadUrl?: string
   websiteUrl?: string
   meta: {
     rating?: string
@@ -99,6 +100,7 @@ function fadeStyle(delay: number) {
           <div :style="fadeStyle(0.35).value">
             <DownloadButton
               :app-store-url="appStoreUrl"
+              :gumroad-url="gumroadUrl"
               :website-url="websiteUrl"
               :status="status"
               :gradient="gradient"

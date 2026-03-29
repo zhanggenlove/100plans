@@ -414,7 +414,7 @@ export const products: Product[] = [
     platforms: ['macOS'],
     category: { en: 'Health & Fitness', zh: '健康', ja: 'ヘルスケア' },
     status: 'released',
-    appStoreUrl: 'https://apps.apple.com/app/id6760637798',
+    gumroadUrl: 'https://zhanggenlove.gumroad.com/l/zzzappy',
     websiteUrl: 'https://zzzappy.app',
     gradient: { from: 'orange-500', to: 'purple-500' },
     screenshots: [],
@@ -457,12 +457,10 @@ export const products: Product[] = [
       },
     ],
     pricing: {
-      type: 'freemium',
+      type: 'paid',
       items: [
-        { name: { en: '7-Day Free Trial', zh: '7 天免费试用', ja: '7日間無料トライアル' }, price: 'Free' },
-        { name: { en: 'Monthly', zh: '月度订阅', ja: '月額' }, price: 'TBD' },
-        { name: { en: 'Yearly', zh: '年度订阅', ja: '年額' }, price: 'TBD' },
-        { name: { en: 'Lifetime', zh: '终身买断', ja: '永久ライセンス' }, price: 'TBD' },
+        { name: { en: '3-Day Free Trial', zh: '3 天免费试用', ja: '3日間無料トライアル' }, price: 'Free' },
+        { name: { en: 'Full Version', zh: '正式版', ja: '正式版' }, price: '$9.9' },
       ],
     },
     meta: {

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { Check } from 'lucide-vue-next'
 
 const { t } = useI18n()
 
@@ -34,6 +35,8 @@ function fadeStyle(delayMs: number) {
     transition: `opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1) ${delayMs}ms, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) ${delayMs}ms`,
   }
 }
+
+const bullets = ['pricingBullet1', 'pricingBullet2', 'pricingBullet3', 'pricingBullet4'] as const
 </script>
 
 <template>
@@ -55,7 +58,7 @@ function fadeStyle(delayMs: number) {
       />
     </div>
 
-    <div class="relative z-10 mx-auto max-w-5xl px-6 py-32">
+    <div class="relative z-10 mx-auto max-w-4xl px-6 py-32">
       <h2
         class="text-center text-3xl font-semibold tracking-tight text-white sm:text-4xl"
         :style="fadeStyle(0)"
@@ -69,113 +72,104 @@ function fadeStyle(delayMs: number) {
         {{ t('zzzappy.pricingTrial') }}
       </p>
 
+      <!-- single pricing card -->
       <div
-        class="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-5"
+        class="mx-auto mt-14 max-w-md"
+        :style="fadeStyle(160)"
       >
-        <!-- Monthly -->
-        <article
-          class="pricing-card flex flex-col rounded-2xl p-8 text-center"
-          :style="fadeStyle(140)"
-        >
-          <h3 class="text-sm font-medium uppercase tracking-widest text-white/45">
-            {{ t('zzzappy.pricingMonthly') }}
-          </h3>
-          <div class="mt-6 flex flex-col items-center gap-1">
-            <div class="flex items-baseline justify-center gap-1.5">
-              <span class="text-4xl font-light tabular-nums text-white">¥8</span>
-              <span class="text-sm text-white/35">/mo</span>
-            </div>
-            <span class="text-sm text-white/40">$0.99/mo</span>
-          </div>
-        </article>
+        <div class="pricing-card relative overflow-hidden rounded-2xl p-[1px]" style="background: linear-gradient(135deg, #f97316 0%, #ec4899 50%, #8b5cf6 100%)">
+          <div class="pricing-card-inner flex flex-col items-center rounded-[15px] px-8 py-10 text-center">
+            <span class="text-sm font-medium uppercase tracking-widest text-white/45">
+              {{ t('zzzappy.pricingOnetime') }}
+            </span>
 
-        <!-- Yearly (highlight) -->
-        <article
-          class="relative rounded-2xl p-[1px]"
-          :style="{
-            ...fadeStyle(220),
-            background: 'linear-gradient(135deg, #f97316 0%, #ec4899 50%, #8b5cf6 100%)',
-          }"
-        >
-          <span
-            class="absolute -top-3 left-1/2 z-10 -translate-x-1/2 rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-white shadow-lg"
-            style="background: linear-gradient(90deg, #f97316, #ec4899, #8b5cf6)"
-          >
-            {{ t('zzzappy.pricingBest') }}
-          </span>
-          <div
-            class="pricing-card-inner flex h-full flex-col rounded-[15px] p-8 pt-10 text-center"
-          >
-            <h3 class="text-sm font-medium uppercase tracking-widest text-white/45">
-              {{ t('zzzappy.pricingYearly') }}
-            </h3>
-            <div class="mt-6 flex flex-col items-center gap-1">
-              <div class="flex items-baseline justify-center gap-1.5">
-                <span class="text-4xl font-light tabular-nums text-white">¥48</span>
-                <span class="text-sm text-white/35">/yr</span>
-              </div>
-              <span class="text-sm text-white/40">$5.99/yr</span>
+            <div class="mt-6 flex items-baseline gap-1">
+              <span class="text-6xl font-light tabular-nums text-white">$9</span>
+              <span class="text-3xl font-light text-white/60">.9</span>
             </div>
-          </div>
-        </article>
 
-        <!-- Lifetime -->
-        <article
-          class="pricing-card flex flex-col rounded-2xl p-8 text-center"
-          :style="fadeStyle(300)"
-        >
-          <h3 class="text-sm font-medium uppercase tracking-widest text-white/45">
-            {{ t('zzzappy.pricingLifetime') }}
-          </h3>
-          <div class="mt-6 flex flex-col items-center gap-1">
-            <div class="flex items-baseline justify-center gap-1.5">
-              <span class="text-4xl font-light tabular-nums text-white">¥128</span>
+            <span class="mt-2 text-sm text-white/40">{{ t('zzzappy.pricingIncludes') }}</span>
+
+            <!-- features list -->
+            <ul class="mt-8 space-y-3 text-left">
+              <li
+                v-for="b in bullets"
+                :key="b"
+                class="flex items-center gap-3 text-sm text-white/70"
+              >
+                <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-[#f97316]/20 to-[#ec4899]/20">
+                  <Check class="h-3 w-3 text-[#fb7185]" />
+                </span>
+                {{ t(`zzzappy.${b}`) }}
+              </li>
+            </ul>
+
+            <!-- CTA buttons -->
+            <div class="mt-10 flex w-full flex-col gap-3">
+              <a
+                href="https://zhanggenlove.gumroad.com/l/zzzappy"
+                target="_blank"
+                rel="noopener"
+                class="zz-cta group relative flex items-center justify-center overflow-hidden rounded-full px-8 py-3.5 text-sm font-semibold text-white no-underline shadow-lg shadow-[#f97316]/20 transition-[transform,box-shadow] duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-[#ec4899]/30 active:scale-[0.98]"
+              >
+                <span class="zz-shimmer" />
+                <span class="relative z-10">{{ t('zzzappy.pricingBuyBtn') }}</span>
+              </a>
+              <a
+                href="https://zhanggenlove.gumroad.com/l/zzzappy-trial"
+                target="_blank"
+                rel="noopener"
+                class="flex items-center justify-center rounded-full border border-white/10 py-3.5 text-sm font-medium text-white/60 no-underline transition-all duration-300 hover:border-white/20 hover:bg-white/[0.04] hover:text-white/80 active:scale-[0.98]"
+              >
+                {{ t('zzzappy.pricingTrialBtn') }}
+              </a>
             </div>
-            <span class="text-sm text-white/40">$14.99</span>
           </div>
-          <p class="mt-4 text-xs leading-relaxed text-white/38">
-            {{ t('zzzappy.pricingOnce') }}
-          </p>
-        </article>
+        </div>
       </div>
 
       <p
-        class="mx-auto mt-12 max-w-lg text-center text-xs leading-relaxed text-white/30"
-        :style="fadeStyle(380)"
+        class="mx-auto mt-8 max-w-lg text-center text-xs leading-relaxed text-white/30"
+        :style="fadeStyle(240)"
       >
-        {{ t('zzzappy.pricingManage') }}
+        {{ t('zzzappy.pricingNote') }}
       </p>
     </div>
   </section>
 </template>
 
 <style scoped>
-.pricing-card {
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
-}
-.pricing-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(255, 255, 255, 0.14);
-  box-shadow:
-    0 12px 40px rgba(0, 0, 0, 0.35),
-    0 0 30px -6px rgba(139, 92, 246, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
-}
-
 .pricing-card-inner {
-  background: rgba(13, 8, 21, 0.75);
+  background: rgba(13, 8, 21, 0.85);
   backdrop-filter: blur(22px);
   -webkit-backdrop-filter: blur(22px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.35),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.zz-cta {
+  background: linear-gradient(135deg, #f97316 0%, #ec4899 45%, #8b5cf6 78%, #3b82f6 100%);
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease infinite;
+}
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.zz-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.2) 45%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.2) 55%, transparent 70%);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .zz-cta { animation: none; background-position: 50% 50%; }
+  .zz-shimmer { animation: none; display: none; }
 }
 </style>

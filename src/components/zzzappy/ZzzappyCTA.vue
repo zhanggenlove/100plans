@@ -77,15 +77,25 @@ onUnmounted(() => obs?.disconnect())
           {{ t('zzzappy.ctaTitle') }}
         </h2>
 
-        <a
-          href="https://apps.apple.com/app/id6760637798"
-          target="_blank"
-          rel="noopener"
-          class="zz-cta group relative inline-flex items-center justify-center overflow-hidden rounded-full px-10 py-4 text-sm font-semibold text-white no-underline shadow-lg shadow-[#f97316]/20 transition-[transform,box-shadow] duration-300 hover:scale-[1.03] hover:shadow-xl hover:shadow-[#ec4899]/30 active:scale-[0.99]"
-        >
-          <span class="zz-shimmer" />
-          <span class="relative z-10">{{ t('zzzappy.ctaButton') }}</span>
-        </a>
+        <div class="flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4">
+          <a
+            href="https://zhanggenlove.gumroad.com/l/zzzappy"
+            target="_blank"
+            rel="noopener"
+            class="zz-cta group relative inline-flex items-center justify-center overflow-hidden rounded-full px-10 py-4 text-sm font-semibold text-white no-underline shadow-lg shadow-[#f97316]/20 transition-[transform,box-shadow] duration-300 hover:scale-[1.03] hover:shadow-xl hover:shadow-[#ec4899]/30 active:scale-[0.99]"
+          >
+            <span class="zz-shimmer" />
+            <span class="relative z-10">{{ t('zzzappy.ctaButton') }}</span>
+          </a>
+          <a
+            href="https://zhanggenlove.gumroad.com/l/zzzappy-trial"
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/[0.06] px-8 py-4 text-sm font-medium text-white/80 no-underline backdrop-blur-sm transition-all duration-300 hover:border-white/25 hover:bg-white/[0.1] hover:text-white active:scale-[0.98]"
+          >
+            {{ t('zzzappy.ctaTrialButton') }}
+          </a>
+        </div>
       </div>
     </div>
 

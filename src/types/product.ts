@@ -11,7 +11,7 @@ export interface ProductFeature {
 }
 
 export interface ProductPricing {
-  type: 'free' | 'freemium'
+  type: 'free' | 'freemium' | 'paid'
   items?: { name: LocalizedString; price: string }[]
 }
 
@@ -41,6 +41,7 @@ export interface Product {
   category: LocalizedString
   status: ProductStatus
   appStoreUrl?: string
+  gumroadUrl?: string
   websiteUrl?: string
   gradient: { from: string; to: string }
   features: ProductFeature[]
