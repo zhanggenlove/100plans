@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { ref, reactive, computed, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
+import ZzzappyLightbox from './ZzzappyLightbox.vue'
 
 const { t, locale } = useI18n()
+const lightboxRef = ref<InstanceType<typeof ZzzappyLightbox>>()
 
 const loc = computed(() => (['zh', 'ja'].includes(locale.value) ? locale.value : 'en'))
 
@@ -117,9 +119,10 @@ onUnmounted(() => obs?.disconnect())
               <img
                 :src="screenshotSrc"
                 :alt="t('zzzappy.armTitle')"
-                class="h-auto w-full rounded-lg object-cover object-top shadow-inner"
+                class="h-auto w-full cursor-pointer rounded-lg object-cover object-top shadow-inner transition-opacity duration-200 hover:opacity-90"
                 loading="lazy"
                 decoding="async"
+                @click="lightboxRef?.open(screenshotSrc)"
               />
             </div>
           </div>
@@ -201,6 +204,7 @@ onUnmounted(() => obs?.disconnect())
         </div>
       </div>
     </div>
+    <ZzzappyLightbox ref="lightboxRef" />
   </section>
 </template>
 
