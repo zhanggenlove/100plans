@@ -136,7 +136,7 @@ onUnmounted(() => {
           transition: 'opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.46s, transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.46s',
         }"
       >
-        <ProductHuntBadge theme="dark" />
+        <ProductHuntBadge theme="dark" slug="zzzappy" post-id="1110934" />
       </div>
 
       <div
