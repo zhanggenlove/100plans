@@ -19,6 +19,7 @@ interface AppStoreEntry {
 const APP_MAP: Record<string, string> = {
   chanfei: '6458101439',
   'coin-focus': '6759708256',
+  whatsrate: '6812290303',
   moocat: '6477344294',
   'quick-keyboard': '1643396533',
   'doc-scanner': '6452550631',
@@ -27,6 +28,7 @@ const APP_MAP: Record<string, string> = {
 const APP_NAMES: Record<string, string> = {
   chanfei: '禅扉',
   'coin-focus': 'Coin Focus',
+  whatsrate: 'WhatsRate',
   moocat: 'Moocat输入法',
   'quick-keyboard': '快捷键盘Pro',
   'doc-scanner': '文档扫描小助手',

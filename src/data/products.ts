@@ -158,6 +158,78 @@ export const products: Product[] = [
     },
   },
   {
+    id: 'whatsrate',
+    slug: 'whatsrate',
+    name: 'WhatsRate',
+    subtitle: {
+      en: 'Live currency rates, scan & convert',
+      zh: '实时汇率 · 拍照算价 · 到价提醒',
+      ja: 'リアルタイム為替・撮影で換算',
+    },
+    description: {
+      en: 'WhatsRate is a minimalist currency companion for travelers and cross-border shoppers. Type once to convert across 137 currencies (offline too), point your camera at any price tag to convert it in real time on-device, read trends with a one-line “good time to convert?” verdict, and set target-rate or deal alerts with push notifications. Free, private, and no account required.',
+      zh: 'WhatsRate（极简汇率）是一款为旅行与跨境购物打造的极简汇率助手。输入一次即可在 137 种货币间实时换算（离线也能查）；对准价格牌拍一下，端侧实时识别并折算，隐私零上传；趋势图配一句话判断“现在换划不划算”；还能设到价 / 划算度提醒并推送。完全免费、隐私优先、无需登录。',
+      ja: 'WhatsRateは旅行や越境ショッピングのためのシンプルな為替アプリ。一度入力すれば137通貨で即換算（オフライン対応）。値札にカメラを向けると端末内でリアルタイムに換算し送信ゼロ。トレンドを一言で「両替の好機か」を表示し、目標レート／お得度アラートを通知。完全無料・プライバシー重視・アカウント不要。',
+    },
+    icon: '/images/apps/whatsrate.png',
+    platforms: ['iOS'],
+    category: { en: 'Finance', zh: '财务', ja: 'ファイナンス' },
+    status: 'released',
+    appStoreUrl: 'https://apps.apple.com/cn/app/id6812290303',
+    gradient: { from: 'teal-400', to: 'emerald-600' },
+    screenshots: [
+      { url: 'https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/c6/25/d1/c625d18c-b320-5480-adb0-482781d54a0b/01_convert.png/460x998bb.webp', type: 'iphone' },
+      { url: 'https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/cf/a6/88/cfa68873-4fae-9979-2546-ce4e6a639bb6/02_trends.png/460x998bb.webp', type: 'iphone' },
+      { url: 'https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/0c/e9/70/0ce97056-bd95-e8ee-45ee-27187bf9ceb4/03_camera.png/460x998bb.webp', type: 'iphone' },
+      { url: 'https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/64/6d/15/646d151c-9bd6-66c6-aeee-1ecb99b21285/04_alerts.png/460x998bb.webp', type: 'iphone' },
+    ],
+    features: [
+      {
+        icon: 'ArrowLeftRight',
+        title: { en: 'Live Conversion', zh: '实时换算', ja: 'リアルタイム換算' },
+        description: {
+          en: 'Type once and every currency updates instantly — 137 currencies, and it works offline.',
+          zh: '输入一次，多币种毫秒级联动，支持 137 种货币，离线也能查。',
+          ja: '一度入力すれば全通貨が即時連動。137通貨対応、オフラインでも使えます。',
+        },
+      },
+      {
+        icon: 'ScanLine',
+        title: { en: 'Scan a Price Tag', zh: '拍照算价', ja: '値札を撮影' },
+        description: {
+          en: 'Point your camera at any price and convert it in real time — on-device, nothing leaves your phone.',
+          zh: '对准价格牌拍一下即时折算，端侧识别、隐私零上传。',
+          ja: '価格にカメラを向けるとリアルタイムで換算。端末内処理で送信ゼロ。',
+        },
+      },
+      {
+        icon: 'TrendingUp',
+        title: { en: 'Trends & Timing', zh: '趋势研判', ja: 'トレンドと好機' },
+        description: {
+          en: 'Overlay normalized rate curves and get a one-line read on whether it’s a good time to convert.',
+          zh: '多币种归一化曲线叠加，一句话告诉你现在是不是换汇好时机。',
+          ja: '正規化曲線を重ね、今が両替の好機かを一言で表示。',
+        },
+      },
+      {
+        icon: 'BellRing',
+        title: { en: 'Rate Alerts', zh: '到价提醒', ja: 'レートアラート' },
+        description: {
+          en: 'Set a target rate or a deal threshold and get a push notification, with 5-year range checks.',
+          zh: '设目标汇率或划算度阈值，到点推送通知，带近 5 年区间防错校验。',
+          ja: '目標レートやお得度を設定して通知。5年レンジ検証で誤設定を防止。',
+        },
+      },
+    ],
+    pricing: { type: 'free' },
+    meta: {
+      size: '4.4 MB',
+      requirements: 'iOS 17.6+',
+      languages: ['简体中文', 'English', '日本語', '한국어'],
+      rating: '—',
+    },
+  },
+  {
     id: 'moocat',
     slug: 'moocat',
     name: 'Moocat输入法',
