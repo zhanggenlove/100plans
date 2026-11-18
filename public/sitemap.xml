@@ -759,4 +759,31 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://100plans.app/ja/terms"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://100plans.app/en/terms"/>
   </url>
+  <url>
+    <loc>https://100plans.app/en/app/unzipgo-pro</loc>
+    <lastmod>2026-11-18</lastmod>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://100plans.app/en/app/unzipgo-pro"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://100plans.app/zh/app/unzipgo-pro"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://100plans.app/ja/app/unzipgo-pro"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://100plans.app/en/app/unzipgo-pro"/>
+  </url>
+  <url>
+    <loc>https://100plans.app/en/app/unzipgo-pro/privacy</loc>
+    <lastmod>2026-11-18</lastmod>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://100plans.app/en/app/unzipgo-pro/privacy"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://100plans.app/zh/app/unzipgo-pro/privacy"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://100plans.app/ja/app/unzipgo-pro/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://100plans.app/en/app/unzipgo-pro/privacy"/>
+  </url>
+  <url>
+    <loc>https://100plans.app/en/app/unzipgo-pro/terms</loc>
+    <lastmod>2026-11-18</lastmod>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://100plans.app/en/app/unzipgo-pro/terms"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://100plans.app/zh/app/unzipgo-pro/terms"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://100plans.app/ja/app/unzipgo-pro/terms"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://100plans.app/en/app/unzipgo-pro/terms"/>
+  </url>
 </urlset>

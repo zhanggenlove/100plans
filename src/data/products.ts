@@ -158,6 +158,94 @@ export const products: Product[] = [
     },
   },
   {
+    id: 'unzipgo-pro',
+    slug: 'unzipgo-pro',
+    name: 'UnzipGo Pro',
+    subtitle: {
+      en: 'Unzip RAR, ZIP & 7Z files — compress, encrypt, manage',
+      zh: '解压 RAR、ZIP、7Z · 压缩加密 · 专业文件管理',
+      ja: 'RAR・ZIP・7Zを解凍、圧縮・暗号化・ファイル管理',
+    },
+    description: {
+      en: 'UnzipGo Pro is a professional unzip tool for iPhone and iPad. Open ZIP, RAR, 7Z, TAR, GZ, BZ2 and XZ archives in one tap, look inside before you extract, and unlock password-protected files. Create ZIP or 7Z archives with AES-256 encryption and split volumes, keep every file in order with a full file manager, open photos, PDFs, documents, music and video right in the app, and move files to your computer over Wi-Fi. Everything runs on your device — no account, no uploads.',
+      zh: 'UnzipGo Pro 是一款面向 iPhone 和 iPad 的专业解压缩工具。一键打开 ZIP、RAR、7Z、TAR、GZ、BZ2、XZ 等压缩包，解压前先预览内容，支持带密码的压缩文件。可创建 ZIP / 7Z 压缩包并使用 AES-256 加密与分卷压缩；内置专业文件管理，图片、PDF、文档、音乐、视频直接在应用内打开；通过 Wi-Fi 在手机与电脑之间互传文件。所有处理都在设备本地完成，无需注册，不上传任何文件。',
+      ja: 'UnzipGo ProはiPhone・iPad向けのプロ仕様の解凍ツールです。ZIP・RAR・7Z・TAR・GZ・BZ2・XZをワンタップで開き、解凍前に中身をプレビュー。パスワード付きファイルにも対応。AES-256暗号化と分割圧縮でZIP／7Zを作成し、本格的なファイル管理で整理。写真・PDF・書類・音楽・動画をアプリ内でそのまま開き、Wi-Fiでパソコンへファイルを転送できます。処理はすべて端末内で完結し、登録もアップロードも不要です。',
+    },
+    icon: '/images/apps/unzipgo-pro.png',
+    platforms: ['iOS', 'iPadOS'],
+    category: { en: 'Utilities', zh: '工具', ja: 'ユーティリティ' },
+    status: 'released',
+    appStoreUrl: 'https://apps.apple.com/app/id6834998790',
+    gradient: { from: 'pink-500', to: 'rose-600' },
+    screenshots: [
+      { url: '/images/screenshots/unzipgo-pro/iphone-01.jpg', type: 'iphone' },
+      { url: '/images/screenshots/unzipgo-pro/iphone-02.jpg', type: 'iphone' },
+      { url: '/images/screenshots/unzipgo-pro/iphone-03.jpg', type: 'iphone' },
+      { url: '/images/screenshots/unzipgo-pro/iphone-04.jpg', type: 'iphone' },
+      { url: '/images/screenshots/unzipgo-pro/iphone-05.jpg', type: 'iphone' },
+      { url: '/images/screenshots/unzipgo-pro/iphone-06.jpg', type: 'iphone' },
+      { url: '/images/screenshots/unzipgo-pro/ipad-01.jpg', type: 'ipad' },
+      { url: '/images/screenshots/unzipgo-pro/ipad-02.jpg', type: 'ipad' },
+      { url: '/images/screenshots/unzipgo-pro/ipad-03.jpg', type: 'ipad' },
+    ],
+    features: [
+      {
+        icon: 'FileArchive',
+        title: { en: 'Unzip Every Common Format', zh: '解压全部常见格式', ja: '主要形式をすべて解凍' },
+        description: {
+          en: 'ZIP, RAR, 7Z, TAR, GZ, BZ2 and XZ — preview the contents first, extract all or just what you need, passwords included.',
+          zh: 'ZIP、RAR、7Z、TAR、GZ、BZ2、XZ 一键解压；先预览内容，可全部解压或只取所需，支持加密压缩包。',
+          ja: 'ZIP・RAR・7Z・TAR・GZ・BZ2・XZに対応。中身を先にプレビューし、全部または必要な分だけ解凍。パスワード付きもOK。',
+        },
+      },
+      {
+        icon: 'Lock',
+        title: { en: 'Compress & Encrypt', zh: '压缩与加密', ja: '圧縮と暗号化' },
+        description: {
+          en: 'Create ZIP or 7Z archives with AES-256 passwords, adjustable compression and split volumes. A built-in password book remembers your keys.',
+          zh: '创建 ZIP / 7Z 压缩包，AES-256 密码加密、可调压缩率、分卷压缩；内置密码本帮你记住常用密码。',
+          ja: 'AES-256パスワード、圧縮率調整、分割圧縮でZIP／7Zを作成。パスワード帳でよく使う鍵を記憶。',
+        },
+      },
+      {
+        icon: 'FolderOpen',
+        title: { en: 'Pro File Manager', zh: '专业文件管理', ja: 'プロのファイル管理' },
+        description: {
+          en: 'Folders, multi-select, copy, move, rename, search, sort and categories — with passcode and Face ID lock.',
+          zh: '文件夹、多选、复制、移动、重命名、搜索、排序与分类浏览，支持密码与面容 ID 锁。',
+          ja: 'フォルダ、複数選択、コピー、移動、名前変更、検索、並べ替え、カテゴリ表示。パスコードとFace IDでロック。',
+        },
+      },
+      {
+        icon: 'Eye',
+        title: { en: 'Open Anything', zh: '打开各种文件', ja: 'なんでも開ける' },
+        description: {
+          en: 'View photos, PDFs, Office documents and text, and play music and video with lyrics, speed control and a sleep timer.',
+          zh: '直接查看图片、PDF、Office 文档与文本，播放音乐和视频，支持歌词、倍速与定时关闭。',
+          ja: '写真・PDF・Office書類・テキストを表示し、音楽や動画を再生。歌詞、再生速度、スリープタイマー対応。',
+        },
+      },
+      {
+        icon: 'Wifi',
+        title: { en: 'Wi-Fi Transfer', zh: '无线传输', ja: 'Wi-Fi転送' },
+        description: {
+          en: 'Open the address shown in the app on your computer’s browser to upload and download files — no cable, no cloud.',
+          zh: '在电脑浏览器打开应用显示的地址即可上传、下载文件，无需数据线，也不经过云端。',
+          ja: 'アプリに表示されたアドレスをパソコンのブラウザで開くだけでファイルを送受信。ケーブルもクラウドも不要。',
+        },
+      },
+    ],
+    pricing: {
+      type: 'freemium',
+      items: [{ name: { en: 'UnzipGo Pro Lifetime', zh: 'UnzipGo Pro 终身版', ja: 'UnzipGo Pro 買い切り' }, price: '$2.99' }],
+    },
+    meta: {
+      requirements: 'iOS 18.0+ / iPadOS 18.0+',
+      languages: ['简体中文', '繁體中文', 'English', '日本語', '한국어', 'Français', 'Deutsch', 'Italiano', 'Español'],
+      rating: '—',
+    },
+  },
+  {
     id: 'whatsrate',
     slug: 'whatsrate',
     name: 'WhatsRate',
