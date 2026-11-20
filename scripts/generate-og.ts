@@ -24,6 +24,7 @@ const PRODUCTS = [
   { slug: 'zzzappy', name: 'Zzzappy', subtitle: 'Screen break & RSI protection', gradient: ['#22c55e', '#84cc16'] },
   { slug: 'music-switch', name: 'Music Switch', subtitle: 'Cross-platform playlist migration', gradient: ['#6366f1', '#8b5cf6'] },
   { slug: 'unzipgo-pro', name: 'UnzipGo Pro', subtitle: 'Unzip RAR, ZIP & 7Z — compress & encrypt', gradient: ['#FD366E', '#19191D'] },
+  { slug: 'ichigo-notes', name: 'Ichigo Notes', subtitle: 'Markdown notes that look beautiful as you type', gradient: ['#cc785c', '#e8a55a'] },
   { slug: 'sakurago', name: '桜語', subtitle: 'Next-gen Japanese vocabulary tool', gradient: ['#ec4899', '#8b5cf6'] },
 ] as const
 

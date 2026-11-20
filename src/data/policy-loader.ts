@@ -15,6 +15,7 @@ const loaders: Record<string, () => Promise<ProductPolicy>> = {
   'music-switch': async () => (await import('./policies/music-switch')).musicSwitchPolicy,
   sakurago: async () => (await import('./policies/sakurago')).sakuragoPolicy,
   'unzipgo-pro': async () => (await import('./policies/unzipgo-pro')).unzipgoProPolicy,
+  'ichigo-notes': async () => (await import('./policies/ichigo-notes')).ichigoNotesPolicy,
 }
 
 export async function loadPolicy(slug: string): Promise<ProductPolicy | null> {

@@ -2,6 +2,95 @@ import type { Product } from '@/types/product'
 
 export const products: Product[] = [
   {
+    id: 'ichigo-notes',
+    slug: 'ichigo-notes',
+    name: 'Ichigo Notes',
+    subtitle: {
+      en: 'Markdown notes that look beautiful as you type',
+      zh: '一期一记 · 边写边排版的 Markdown 笔记',
+      ja: '書くそばから美しく整う Markdown メモ',
+    },
+    description: {
+      en: 'Ichigo Notes is a calm, fast and private notebook for iPhone and iPad. Write in plain Markdown that styles itself as you type — headings, real checkboxes, tables, code and status chips. Put #tags anywhere, link notes with [[wiki links]], find anything with smart searches like @todo, handwrite with Apple Pencil and turn it into text, scan documents, and keep your latest todos on a widget. Notes sync through your own iCloud, locked notes are encrypted, and Pro is a one-time $2.99 purchase — no subscription.',
+      zh: '一期一记是为 iPhone 与 iPad 打造的安静、迅捷、私密的笔记本。用纯 Markdown 书写，输入即刻优雅排版——标题、可点击的待办、表格、代码与状态标记。标签写在任意位置，[[双链]] 连接笔记，@todo 等智能搜索一秒找到；用 Apple Pencil 手写并转成文字、扫描文稿、在小组件上查看最新待办。笔记通过你自己的 iCloud 同步，加密笔记更安心；Pro 仅需 $2.99 一次买断，没有订阅。',
+      ja: 'Ichigo Notes は iPhone・iPad のための、静かで速くプライベートなノートです。プレーンな Markdown で書くだけで、見出し、チェックボックス、表、コード、ステータスチップが入力と同時に美しく整います。どこにでも #タグ、[[Wiki リンク]] でメモをつなぎ、@todo などのスマート検索ですぐに見つかります。Apple Pencil の手書きをテキストに変換、書類スキャン、最新の ToDo をウィジェットに。メモはあなたの iCloud で同期し、ロックしたメモは暗号化。Pro は $2.99 の買い切りでサブスクなし。',
+    },
+    icon: '/images/apps/ichigo-notes.png',
+    platforms: ['iOS', 'iPadOS'],
+    category: { en: 'Productivity', zh: '效率', ja: '仕事効率化' },
+    status: 'released',
+    appStoreUrl: 'https://apps.apple.com/app/id6836618066',
+    gradient: { from: 'orange-500', to: 'rose-500' },
+    screenshots: [
+      { url: '/images/screenshots/ichigo-notes/iphone-01.jpg', type: 'iphone' },
+      { url: '/images/screenshots/ichigo-notes/iphone-02.jpg', type: 'iphone' },
+      { url: '/images/screenshots/ichigo-notes/iphone-03.jpg', type: 'iphone' },
+      { url: '/images/screenshots/ichigo-notes/iphone-04.jpg', type: 'iphone' },
+      { url: '/images/screenshots/ichigo-notes/iphone-05.jpg', type: 'iphone' },
+      { url: '/images/screenshots/ichigo-notes/iphone-06.jpg', type: 'iphone' },
+      { url: '/images/screenshots/ichigo-notes/iphone-07.jpg', type: 'iphone' },
+      { url: '/images/screenshots/ichigo-notes/ipad-01.jpg', type: 'ipad' },
+      { url: '/images/screenshots/ichigo-notes/ipad-02.jpg', type: 'ipad' },
+      { url: '/images/screenshots/ichigo-notes/ipad-03.jpg', type: 'ipad' },
+    ],
+    features: [
+      {
+        icon: 'Edit',
+        title: { en: 'Live Markdown', zh: '实时 Markdown', ja: 'ライブ Markdown' },
+        description: {
+          en: 'Headings, highlights, real checkboxes, tables, code and math — styled the moment you type, with Preview and iPad Split view.',
+          zh: '标题、高亮、可点击待办、表格、代码与公式，输入即排版；支持预览和 iPad 分栏。',
+          ja: '見出し、ハイライト、チェックボックス、表、コード、数式が入力と同時に整います。プレビューと iPad の分割表示にも対応。',
+        },
+      },
+      {
+        icon: 'Sparkles',
+        title: { en: 'Status Chips', zh: '状态标记', ja: 'ステータスチップ' },
+        description: {
+          en: 'Priority and Status chips right inside your text, with your own options and colours, plus a progress ring for every todo list.',
+          zh: '优先级、状态标记直接写在正文里，可自定义选项和颜色；每个待办清单都有完成进度。',
+          ja: '優先度やステータスのチップを本文の中に。選択肢と色は自由に設定でき、ToDo リストごとに進捗を表示。',
+        },
+      },
+      {
+        icon: 'Layers',
+        title: { en: 'Tags, Links & Smart Search', zh: '标签、双链与智能搜索', ja: 'タグ・リンク・スマート検索' },
+        description: {
+          en: 'Nested #tags, [[wiki links]] with backlinks, and searches like @todo, @today or @date(2026-11) in five languages.',
+          zh: '嵌套 #标签、带反向链接的 [[双链]]，以及 @todo、@today、@date(2026-11) 等智能搜索，支持 5 种语言写法。',
+          ja: '入れ子の #タグ、バックリンク付きの [[Wiki リンク]]、@todo・@today・@date(2026-11) などのスマート検索。',
+        },
+      },
+      {
+        icon: 'ScanLine',
+        title: { en: 'Handwriting & Scanning', zh: '手写与扫描', ja: '手書きとスキャン' },
+        description: {
+          en: 'Write with Apple Pencil or a finger and turn it into text, scan paper documents, and draw on pictures.',
+          zh: '用 Apple Pencil 或手指手写并转成文字，扫描纸质文稿，在图片上涂鸦标注。',
+          ja: 'Apple Pencil や指で手書きしてテキストに変換、紙の書類をスキャン、画像に描き込み。',
+        },
+      },
+      {
+        icon: 'Lock',
+        title: { en: 'Private by Design', zh: '隐私至上', ja: 'プライバシー重視' },
+        description: {
+          en: 'Sync through your own iCloud, lock notes with Face ID and AES-256 encryption. No account, no ads, no tracking.',
+          zh: '通过你自己的 iCloud 同步，面容 ID + AES-256 加密锁定笔记。无需注册、无广告、无追踪。',
+          ja: 'あなたの iCloud で同期し、Face ID と AES-256 暗号化でメモをロック。アカウント・広告・追跡なし。',
+        },
+      },
+    ],
+    pricing: {
+      type: 'freemium',
+      items: [{ name: { en: 'Ichigo Notes Pro Lifetime', zh: '一期一记 Pro 终身版', ja: 'Ichigo Notes Pro 買い切り' }, price: '$2.99' }],
+    },
+    meta: {
+      requirements: 'iOS 17.0+ / iPadOS 17.0+',
+      languages: ['简体中文', '繁體中文', 'English', '日本語', '한국어'],
+      rating: '—',
+    },
+  },
+  {
     id: 'chanfei',
     slug: 'chanfei',
     name: '禅扉',
