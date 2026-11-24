@@ -2,6 +2,92 @@ import type { Product } from '@/types/product'
 
 export const products: Product[] = [
   {
+    id: 'blechat',
+    slug: 'blechat',
+    name: 'BLEChat',
+    subtitle: {
+      en: 'Chat with people nearby over Bluetooth, with no internet',
+      zh: '无网也能聊 · 基于蓝牙的离线聊天',
+      ja: 'ネットなしで、近くの人と Bluetooth チャット',
+    },
+    description: {
+      en: 'BLEChat lets you message and call people around you with no Wi-Fi, no cellular data and no SIM card. Phones talk to each other directly over Bluetooth, and every phone running BLEChat relays messages further, so you stay in touch at crowded festivals, deep in the mountains, at sea or when the network goes down after a disaster. Chat with everyone nearby in Public, start end-to-end encrypted private chats and voice calls, and see who is around on the Nearby screen. No account, no servers, no ads — completely free, on iPhone, iPad, iPhone Duo and Apple Watch.',
+      zh: 'BLEChat 让你在没有 Wi-Fi、没有移动数据、没有 SIM 卡的地方，也能和身边的人发消息、打电话。手机之间直接通过蓝牙通信，每一部运行 BLEChat 的手机都会把消息继续接力传递——拥挤的音乐节、深山里、海上，或灾害导致断网时，依然能保持联系。在“公开”里和附近所有人聊天，发起端到端加密的私信与语音通话，在“附近”页看看身边有谁。无需账号、没有服务器、没有广告，完全免费，支持 iPhone、iPad、iPhone Duo 与 Apple Watch。',
+      ja: 'BLEChat は Wi-Fi もモバイル通信も SIM カードもない場所で、周りの人とメッセージや通話ができるアプリです。スマホ同士が Bluetooth で直接つながり、BLEChat を使うすべてのスマホがメッセージをさらに遠くへリレー。混雑したフェス、山の中、海の上、災害で通信が止まったときでもつながれます。「公開」で近くの全員と会話し、エンドツーエンド暗号化のプライベートチャットや音声通話も。アカウント・サーバー・広告なしで完全無料。iPhone、iPad、iPhone Duo、Apple Watch に対応。',
+    },
+    icon: '/images/apps/blechat.png',
+    platforms: ['iOS', 'iPadOS'],
+    category: { en: 'Social Networking', zh: '社交', ja: 'ソーシャルネットワーキング' },
+    status: 'coming-soon',
+    appStoreUrl: 'https://apps.apple.com/app/id6837737233',
+    gradient: { from: 'emerald-500', to: 'green-600' },
+    screenshots: [
+      { url: '/images/screenshots/blechat/iphone-01.jpg', type: 'iphone' },
+      { url: '/images/screenshots/blechat/iphone-02.jpg', type: 'iphone' },
+      { url: '/images/screenshots/blechat/iphone-03.jpg', type: 'iphone' },
+      { url: '/images/screenshots/blechat/iphone-04.jpg', type: 'iphone' },
+      { url: '/images/screenshots/blechat/iphone-05.jpg', type: 'iphone' },
+      { url: '/images/screenshots/blechat/iphone-06.jpg', type: 'iphone' },
+      { url: '/images/screenshots/blechat/iphone-07.jpg', type: 'iphone' },
+      { url: '/images/screenshots/blechat/ipad-01.jpg', type: 'ipad' },
+      { url: '/images/screenshots/blechat/ipad-02.jpg', type: 'ipad' },
+      { url: '/images/screenshots/blechat/ipad-03.jpg', type: 'ipad' },
+    ],
+    features: [
+      {
+        icon: 'Wifi',
+        title: { en: 'Works Offline', zh: '完全离线', ja: '完全オフライン' },
+        description: {
+          en: 'No internet, Wi-Fi or SIM needed. Phones connect directly over Bluetooth.',
+          zh: '不需要网络、Wi-Fi 或 SIM 卡，手机之间直接通过蓝牙连接。',
+          ja: 'インターネットも Wi-Fi も SIM も不要。スマホ同士が Bluetooth で直接つながります。',
+        },
+      },
+      {
+        icon: 'Share2',
+        title: { en: 'Mesh Relay', zh: '网状接力', ja: 'メッシュリレー' },
+        description: {
+          en: 'Messages hop from phone to phone, reaching people well beyond one Bluetooth range.',
+          zh: '消息在手机之间一跳一跳传递，远远超出单台手机的蓝牙范围。',
+          ja: 'メッセージがスマホからスマホへ渡り、1 台の Bluetooth 範囲を超えて届きます。',
+        },
+      },
+      {
+        icon: 'Lock',
+        title: { en: 'End-to-End Encrypted', zh: '端到端加密', ja: 'エンドツーエンド暗号化' },
+        description: {
+          en: 'Private chats and calls are encrypted. Relaying phones can’t read them, and there are no servers.',
+          zh: '私信和通话全程加密，转发的手机无法读取，也没有任何服务器。',
+          ja: 'プライベートチャットと通話は暗号化。中継する端末も読めず、サーバーもありません。',
+        },
+      },
+      {
+        icon: 'MessageSquare',
+        title: { en: 'Public Chat & Calls', zh: '公开群聊与通话', ja: '公開チャットと通話' },
+        description: {
+          en: 'Talk with everyone nearby in one room, or call someone over Bluetooth with no network.',
+          zh: '和附近所有人在同一个聊天室交流，或通过蓝牙直接语音通话。',
+          ja: '近くの全員と 1 つのルームで会話、またはネットなしで Bluetooth 通話。',
+        },
+      },
+      {
+        icon: 'Smartphone',
+        title: { en: 'Everywhere You Are', zh: '全平台可用', ja: 'どの端末でも' },
+        description: {
+          en: 'iPhone, iPad, iPhone Duo and Apple Watch, in 18 languages. Free, no account, no ads.',
+          zh: '支持 iPhone、iPad、iPhone Duo 与 Apple Watch，18 种语言。免费、免注册、无广告。',
+          ja: 'iPhone、iPad、iPhone Duo、Apple Watch に対応し 18 言語。無料・登録不要・広告なし。',
+        },
+      },
+    ],
+    pricing: { type: 'free' },
+    meta: {
+      requirements: 'iOS 17.0+ / iPadOS 17.0+ / watchOS 10.0+',
+      languages: ['English', '简体中文', '繁體中文', '日本語', '한국어', 'Deutsch', 'Français', 'Italiano', 'Español', 'Português', 'Русский', 'العربية', 'हिन्दी', 'Türkçe', 'Nederlands', 'Polski', 'Bahasa Indonesia', 'ไทย'],
+      rating: '—',
+    },
+  },
+  {
     id: 'ichigo-notes',
     slug: 'ichigo-notes',
     name: 'Ichigo Notes',

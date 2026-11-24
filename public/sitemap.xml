@@ -813,4 +813,31 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://100plans.app/ja/app/ichigo-notes/terms"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://100plans.app/en/app/ichigo-notes/terms"/>
   </url>
+  <url>
+    <loc>https://100plans.app/en/app/blechat</loc>
+    <lastmod>2026-11-19</lastmod>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://100plans.app/en/app/blechat"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://100plans.app/zh/app/blechat"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://100plans.app/ja/app/blechat"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://100plans.app/en/app/blechat"/>
+  </url>
+  <url>
+    <loc>https://100plans.app/en/app/blechat/privacy</loc>
+    <lastmod>2026-11-19</lastmod>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://100plans.app/en/app/blechat/privacy"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://100plans.app/zh/app/blechat/privacy"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://100plans.app/ja/app/blechat/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://100plans.app/en/app/blechat/privacy"/>
+  </url>
+  <url>
+    <loc>https://100plans.app/en/app/blechat/terms</loc>
+    <lastmod>2026-11-19</lastmod>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://100plans.app/en/app/blechat/terms"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://100plans.app/zh/app/blechat/terms"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://100plans.app/ja/app/blechat/terms"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://100plans.app/en/app/blechat/terms"/>
+  </url>
 </urlset>
