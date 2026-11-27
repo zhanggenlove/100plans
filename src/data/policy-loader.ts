@@ -17,6 +17,7 @@ const loaders: Record<string, () => Promise<ProductPolicy>> = {
   'unzipgo-pro': async () => (await import('./policies/unzipgo-pro')).unzipgoProPolicy,
   'ichigo-notes': async () => (await import('./policies/ichigo-notes')).ichigoNotesPolicy,
   'blechat': async () => (await import('./policies/blechat')).blechatPolicy,
+  'seamroll': async () => (await import('./policies/seamroll')).seamrollPolicy,
 }
 
 export async function loadPolicy(slug: string): Promise<ProductPolicy | null> {

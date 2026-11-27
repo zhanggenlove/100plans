@@ -10,6 +10,7 @@ import {
   Cloud,
   Edit,
   Eye,
+  EyeOff,
   FileArchive,
   FolderOpen,
   Gamepad2,
@@ -31,6 +32,7 @@ import {
   Sparkles,
   Stamp,
   Star,
+  Video,
   Wifi,
   Zap,
 } from 'lucide-vue-next'
@@ -44,6 +46,7 @@ const iconMap: Record<string, typeof Star> = {
   Cloud,
   Edit,
   Eye,
+  EyeOff,
   FileArchive,
   FolderOpen,
   Gamepad2,
@@ -65,6 +68,7 @@ const iconMap: Record<string, typeof Star> = {
   Sparkles,
   Stamp,
   Star,
+  Video,
   Wifi,
   Zap,
 }

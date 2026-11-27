@@ -2,6 +2,95 @@ import type { Product } from '@/types/product'
 
 export const products: Product[] = [
   {
+    id: 'seamroll',
+    slug: 'seamroll',
+    name: 'Seamroll',
+    subtitle: {
+      en: 'Stitch screenshots, recordings and web pages into one long screenshot',
+      zh: '长截图拼接 · 滚动截屏 · 网页长图',
+      ja: 'スクショ・画面収録・Web ページを 1 枚の長いスクショに',
+    },
+    description: {
+      en: 'Seamroll turns screenshots, screen recordings and web pages into one clean, shareable long screenshot. Pick a few overlapping screenshots and it finds exactly where they meet, removing repeated headers, tab bars and status bars. Start Scrolling Capture and just scroll in any app, turn any screen recording into a long image, or capture an entire web page. Drag a seam to fine-tune to the pixel, hide private details automatically, add arrows and notes, frame it in a device mockup and export as an image, slices or PDF. Everything runs on your device — no account, no upload. Try 5 scrollshots free; Seamroll Pro is a one-time purchase.',
+      zh: 'Seamroll 把截图、录屏和网页变成一张干净、便于分享的长截图。选择几张有重叠的截图，它会精确找到衔接处，自动去除重复的标题栏、底栏和状态栏。开启滚动截屏，在任意 App 中滚动即可；任意录屏一键生成长图；整个网页也能截成一张。拖动接缝做像素级微调，一键隐藏隐私信息，添加箭头和标注，套上设备外框，导出为图片、切片或 PDF。全部在本机完成，无需账号、不上传。免费体验 5 次，Seamroll Pro 一次性买断。',
+      ja: 'Seamroll はスクリーンショット、画面収録、Web ページを、共有しやすいきれいな 1 枚の長いスクショにします。重なりのあるスクショを選ぶと接合位置を正確に見つけ、重複するヘッダーやタブバー、ステータスバーを自動で除去。スクロールキャプチャならどのアプリでもスクロールするだけ。画面収録から長い画像を作ったり、Web ページ全体を 1 枚にすることも。継ぎ目をピクセル単位で調整し、個人情報を自動で隠し、矢印やメモを加え、デバイスフレームで仕上げて、画像・スライス・PDF で書き出せます。処理はすべて端末内、アカウントもアップロードも不要。5 回無料、Seamroll Pro は買い切りです。',
+    },
+    icon: '/images/apps/seamroll.png',
+    platforms: ['iOS', 'iPadOS'],
+    category: { en: 'Photo & Video', zh: '摄影与录像', ja: '写真/ビデオ' },
+    status: 'coming-soon',
+    appStoreUrl: 'https://apps.apple.com/app/id6839971271',
+    gradient: { from: 'orange-500', to: 'orange-700' },
+    screenshots: [
+      { url: '/images/screenshots/seamroll/iphone-01.jpg', type: 'iphone' },
+      { url: '/images/screenshots/seamroll/iphone-02.jpg', type: 'iphone' },
+      { url: '/images/screenshots/seamroll/iphone-03.jpg', type: 'iphone' },
+      { url: '/images/screenshots/seamroll/iphone-04.jpg', type: 'iphone' },
+      { url: '/images/screenshots/seamroll/iphone-05.jpg', type: 'iphone' },
+      { url: '/images/screenshots/seamroll/iphone-06.jpg', type: 'iphone' },
+      { url: '/images/screenshots/seamroll/iphone-07.jpg', type: 'iphone' },
+      { url: '/images/screenshots/seamroll/ipad-01.jpg', type: 'ipad' },
+      { url: '/images/screenshots/seamroll/ipad-02.jpg', type: 'ipad' },
+      { url: '/images/screenshots/seamroll/ipad-03.jpg', type: 'ipad' },
+    ],
+    features: [
+      {
+        icon: 'Layers',
+        title: { en: 'Smart Stitching', zh: '智能拼接', ja: 'スマート結合' },
+        description: {
+          en: 'Finds where screenshots overlap to the pixel and removes repeated headers, tab bars and status bars.',
+          zh: '像素级找到截图的重叠位置，自动去除重复的标题栏、底栏和状态栏。',
+          ja: 'スクショの重なりをピクセル単位で検出し、重複するヘッダーやバーを自動で除去。',
+        },
+      },
+      {
+        icon: 'Video',
+        title: { en: 'Scroll & Recordings', zh: '滚动截屏与录屏', ja: 'スクロールと画面収録' },
+        description: {
+          en: 'Just scroll with Scrolling Capture, or turn any screen recording into one long image.',
+          zh: '用滚动截屏一路滚动即可，或把任意录屏变成一张长图。',
+          ja: 'スクロールキャプチャでスクロールするだけ。画面収録も 1 枚の長い画像に。',
+        },
+      },
+      {
+        icon: 'Globe',
+        title: { en: 'Full Web Pages', zh: '网页长截图', ja: 'Web ページ全体' },
+        description: {
+          en: 'Capture an entire web page in one image, with sticky headers shown only once.',
+          zh: '整个网页截成一张图，吸顶标题栏只出现一次。',
+          ja: 'Web ページ全体を 1 枚に。固定ヘッダーは 1 回だけ。',
+        },
+      },
+      {
+        icon: 'EyeOff',
+        title: { en: 'Private by Design', zh: '隐私优先', ja: 'プライバシー重視' },
+        description: {
+          en: 'Hide emails, phone numbers and links automatically. Everything is processed on your device.',
+          zh: '自动隐藏邮箱、电话和链接，所有处理都在你的设备上完成。',
+          ja: 'メールや電話番号、リンクを自動で非表示。処理はすべて端末内。',
+        },
+      },
+      {
+        icon: 'Smartphone',
+        title: { en: 'Share Beautifully', zh: '精美分享', ja: '美しく共有' },
+        description: {
+          en: 'Markup, watermarks and device frames; export as image, slices or PDF. iPhone, iPad and iPhone Duo, 12 languages.',
+          zh: '标注、水印和设备套壳，导出为图片、切片或 PDF。支持 iPhone、iPad 与 iPhone Duo，12 种语言。',
+          ja: 'マークアップ、透かし、デバイスフレーム。画像・スライス・PDF で書き出し。iPhone、iPad、iPhone Duo、12 言語。',
+        },
+      },
+    ],
+    pricing: {
+      type: 'freemium',
+      items: [{ name: { en: 'Seamroll Pro (one-time)', zh: 'Seamroll Pro（买断）', ja: 'Seamroll Pro（買い切り）' }, price: '$2.99' }],
+    },
+    meta: {
+      requirements: 'iOS 17.0+ / iPadOS 17.0+',
+      languages: ['English', '简体中文', '繁體中文', '日本語', '한국어', 'Deutsch', 'Français', 'Italiano', 'Español', 'Português', 'Русский', 'العربية'],
+      rating: '—',
+    },
+  },
+  {
     id: 'blechat',
     slug: 'blechat',
     name: 'BLEChat',

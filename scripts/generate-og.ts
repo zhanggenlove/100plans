@@ -26,6 +26,7 @@ const PRODUCTS = [
   { slug: 'unzipgo-pro', name: 'UnzipGo Pro', subtitle: 'Unzip RAR, ZIP & 7Z — compress & encrypt', gradient: ['#FD366E', '#19191D'] },
   { slug: 'ichigo-notes', name: 'Ichigo Notes', subtitle: 'Markdown notes that look beautiful as you type', gradient: ['#cc785c', '#e8a55a'] },
   { slug: 'blechat', name: 'BLEChat', subtitle: 'Chat with people nearby over Bluetooth, with no internet', gradient: ['#3ecf8e', '#1fa872'] },
+  { slug: 'seamroll', name: 'Seamroll', subtitle: 'Stitch screenshots, recordings & web pages into one long screenshot', gradient: ['#F37338', '#CF4500'] },
   { slug: 'sakurago', name: '桜語', subtitle: 'Next-gen Japanese vocabulary tool', gradient: ['#ec4899', '#8b5cf6'] },
 ] as const
 
